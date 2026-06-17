@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>India IT KPI Dashboard</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<style>
+  :root{
+    --navy:#0B285B;--navy-2:#123a7d;--navy-3:#1d4ea0;--ink:#0f1b33;
+    --purple:#8234CF;--blue:#4781FF;--teal:#35CBCC;--green-ok:#53cb7a;
+    --yellow:#FFBE06;--coral:#F66E4E;--magenta:#BD3168;
+    --bg:#eef1f6;--card:#ffffff;--line:#e3e8f0;--muted:#6b7689;
+    --shadow:0 10px 30px rgba(11,40,91,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Montserrat',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;}
+
+  header.topbar{background:linear-gradient(120deg,var(--navy) 0%,var(--navy-2) 55%,var(--navy-3) 100%);
+    color:#fff;padding:26px 36px 30px;position:relative;overflow:hidden;}
+  header.topbar::after{content:"";position:absolute;right:-80px;top:-80px;width:340px;height:340px;
+    background:radial-gradient(circle,rgba(71,129,255,.35),transparent 65%);border-radius:50%;}
+  .brandrow{display:flex;align-items:center;gap:20px;position:relative;z-index:1}
+  .logo-img{height:34px;width:auto;display:block}
+  .crumb{font-size:12.5px;color:#b9c7e6;margin-left:auto;text-align:right;line-height:1.5;font-weight:500}
+  .crumb .status{display:inline-flex;align-items:center;gap:6px;margin-top:6px}
+  .dotlive{width:8px;height:8px;border-radius:50%;background:var(--green-ok);box-shadow:0 0 0 0 rgba(83,203,122,.6);animation:pulse 2s infinite}
+  .dotlive.stale{background:var(--yellow);animation:none}
+  .dotlive.err{background:var(--coral);animation:none}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(83,203,122,.5)}70%{box-shadow:0 0 0 7px rgba(83,203,122,0)}100%{box-shadow:0 0 0 0 rgba(83,203,122,0)}}
+  h1.maintitle{position:relative;z-index:1;margin-top:20px;font-size:32px;font-weight:800;letter-spacing:-.5px;cursor:pointer;}
+  .subtitle{position:relative;z-index:1;color:#c4d2ef;font-size:14px;margin-top:6px;font-weight:500}
+
+  nav.tabs{display:flex;gap:18px;padding:22px 36px 0;flex-wrap:wrap;margin-top:-26px;position:relative;z-index:2;}
+  .tab{flex:1;min-width:230px;background:var(--card);border-radius:16px;padding:22px 24px;
+    box-shadow:var(--shadow);cursor:pointer;border:2px solid transparent;
+    transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;}
+  .tab:hover{transform:translateY(-4px)}
+  .tab .bar-top{height:5px;width:46px;border-radius:4px;margin-bottom:14px}
+  .tab[data-k="helpdesk"] .bar-top{background:linear-gradient(90deg,var(--blue),var(--navy-3))}
+  .tab[data-k="ops"] .bar-top{background:linear-gradient(90deg,var(--teal),var(--green-ok))}
+  .tab[data-k="rsit"] .bar-top{background:linear-gradient(90deg,var(--purple),var(--magenta))}
+  .tab .tt{font-weight:700;font-size:17px}
+  .tab .ts{font-size:12.5px;color:var(--muted);margin-top:5px;font-weight:500}
+  .tab.active{border-color:var(--blue);box-shadow:0 14px 34px rgba(71,129,255,.22)}
+  .tab[data-k="ops"].active{border-color:var(--teal);box-shadow:0 14px 34px rgba(53,203,204,.22)}
+  .tab[data-k="rsit"].active{border-color:var(--purple);box-shadow:0 14px 34px rgba(130,52,207,.22)}
+
+  main{padding:26px 36px 60px}
+  .panel{display:none;animation:fade .35s ease}
+  .panel.show{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .sectionhead{display:flex;align-items:center;gap:12px;margin:6px 0 18px;flex-wrap:wrap}
+  .sectionhead h2{font-size:20px;font-weight:800}
+  .pill{font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:999px}
+  .pill.good{background:#e3f7ea;color:#1f8f4d}
+  .pill.warn{background:#fff3d6;color:#9a6b00}
+  .refreshbtn{margin-left:auto;background:var(--navy);color:#fff;border:none;border-radius:10px;
+    padding:9px 16px;font-family:inherit;font-weight:600;font-size:12.5px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:8px;transition:background .15s}
+  .refreshbtn:hover{background:var(--navy-3)}
+  .refreshbtn svg{width:14px;height:14px}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
+  .kpi{background:var(--card);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}
+  .kpi.c1::before{background:var(--blue)} .kpi.c2::before{background:var(--green-ok)}
+  .kpi.c3::before{background:var(--yellow)} .kpi.c4::before{background:var(--purple)}
+  .kpi .lab{font-size:12.5px;color:var(--muted);font-weight:600}
+  .kpi .val{font-size:30px;font-weight:800;margin-top:6px;letter-spacing:-1px}
+  .kpi .sub{font-size:11.5px;color:var(--muted);margin-top:4px;font-weight:500}
+
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1.15fr 1fr 1.15fr}
+  .cardc{background:var(--card);border-radius:16px;padding:18px 20px 20px;box-shadow:var(--shadow)}
+  .cardc h3{font-size:13px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--navy);margin-bottom:14px}
+  .chartbox{position:relative;height:300px}
+  .chartbox.sm{height:260px}
+
+  table.up{width:100%;border-collapse:collapse;font-size:13px}
+  table.up th{text-align:left;color:var(--muted);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;padding:8px 6px;border-bottom:1px solid var(--line)}
+  table.up td{padding:9px 6px;border-bottom:1px solid var(--line);font-weight:500}
+  table.up td.r,table.up th.r{text-align:right}
+  .upval{font-weight:700}
+  .bar{height:7px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:5px}
+  .bar i{display:block;height:100%;border-radius:4px}
+
+  .scrollbox{max-height:460px;overflow:auto}
+  .scrollbox::-webkit-scrollbar{width:8px}
+  .scrollbox::-webkit-scrollbar-thumb{background:#cfd8e6;border-radius:8px}
+
+  /* setup banner */
+  .setup{background:#fff7e6;border:1px solid #ffe2a8;color:#7a5600;border-radius:14px;
+    padding:16px 20px;margin:0 0 20px;font-size:13.5px;font-weight:500;line-height:1.6}
+  .setup b{font-weight:700}
+  .setup code{background:#fff;border:1px solid #ffe2a8;border-radius:5px;padding:1px 6px;font-size:12.5px;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .setup.hide{display:none}
+
+  .peakcard{display:flex;align-items:center;gap:12px;background:linear-gradient(120deg,rgba(71,129,255,.10),rgba(53,203,204,.10));
+    border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin-bottom:14px}
+  .peakcard .spark{width:34px;height:34px;border-radius:9px;flex:none;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;font-size:17px;font-weight:800}
+  .peakcard .ptxt{font-size:13px;line-height:1.45;font-weight:500;color:var(--ink)}
+  .peakcard .ptxt b{font-weight:800;color:var(--navy)}
+  .peakcard .ptag{margin-left:auto;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
+    color:#1f6fd1;background:rgba(71,129,255,.12);padding:5px 10px;border-radius:999px;white-space:nowrap}
+  .agenthead{display:grid;grid-template-columns:1.4fr 60px 64px;gap:8px;font-size:10.5px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.4px;color:var(--muted);padding:0 2px 8px;border-bottom:1px solid var(--line)}
+  .agenthead .r{text-align:right}
+  .agentlist{display:flex;flex-direction:column;gap:0}
+  .agentrow{display:grid;grid-template-columns:1.4fr 60px 64px;gap:8px;align-items:center;padding:10px 2px;border-bottom:1px solid var(--line)}
+  .agentrow:last-child{border-bottom:none}
+  .agentname{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;min-width:0}
+  .agentname .av{width:26px;height:26px;border-radius:7px;flex:none;display:grid;place-items:center;color:#fff;font-size:10.5px;font-weight:700}
+  .agentname .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .agentbarwrap{margin-top:4px;height:6px;border-radius:4px;background:var(--line);overflow:hidden;grid-column:1 / -1}
+  .agentbarwrap i{display:block;height:100%;border-radius:4px;background:var(--blue)}
+  .agentct{text-align:right;font-weight:700;font-size:14px}
+  .slabadge{justify-self:end;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;color:#fff;min-width:54px;text-align:center}
+  .statusstrip{display:flex;gap:18px;flex-wrap:wrap;margin:-6px 0 16px;padding:10px 14px;
+    background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+  .statusstrip .scnt{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--ink)}
+  .statusstrip .scnt i{width:11px;height:11px;border-radius:3px;display:inline-block}
+  .nodata{padding:30px 0}
+  .nd-card{max-width:520px;margin:40px auto;text-align:center;background:var(--card);border:1px solid var(--line);
+    border-radius:18px;box-shadow:var(--shadow);padding:42px 32px}
+  .nd-ic{font-size:40px;color:var(--blue);line-height:1}
+  .nd-tt{font-size:20px;font-weight:800;color:var(--navy);margin:14px 0 8px}
+  .nd-tx{font-size:14px;font-weight:500;color:var(--muted);line-height:1.6;margin-bottom:22px}
+  .nd-tx b{color:var(--ink)}
+  .nd-btn{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;border-radius:10px;
+    padding:11px 22px;font-weight:700;font-size:13.5px;cursor:pointer}
+  .nd-btn:hover{background:var(--navy-3)}
+  footer{padding:18px 36px;color:var(--muted);font-size:12px;text-align:center;font-weight:500}
+  @media(max-width:1050px){.g3,.g2{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}h1.maintitle{font-size:24px}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brandrow">
+    <img class="c-badge" onclick="goHome()" style="cursor:pointer;height:34px;width:34px;border-radius:8px;margin-right:2px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAIvUlEQVR4nO1aa3BV1RVea+197uPce8kLAoQkQMqbyNOZqiPUWFrBQlEHq1OtQx11qjhQYKat4GClLx0RHfSPosC0DeJYS2VGqhYiTHmISiXyUh6WEEEKJISb+zxn77364ySRR8Dcm4TgTL6f++579vr22ev17YOBYffAtxnU1Qa0F90EuhrdBLoa3QS6Gt0Euhqy8x6NCOgBAAABmAGAwTAzc0et0vEECAGJgNFRynUcUBoMe8YDIQghfNJnSUFomI1pL5OOJECEhJhMKZ2Mg8D8gpyyIf0GlPQq6p0bDPhdpU7XRY8cq/tv7akvTzRwKg1+y7YDiKC16WICiEAk4okUpNP9BxTeevPEyRPHjh1ZVlKUd/ESZxqi+w7Wbty+Z92GnTt3fwGa7UgIAIzJhga2vxoVRErpdGNiRHnpnJlTZky5Pj8vp+VXbUzLgUcAomanANBaV2379PmV69dv/AQEhUNBpfSVJiCFiMWS4ZD8zSO3z71/qh0MAjQdiXNtPRfMbJiZQYqmGPjWhg8WPFW5b39tKK+H0Zm5RbsICCni9Y1jR/V/ZcmscSMHAYDSWhC1aner0MYgABGdbYz/cvGrqyqrfJGQENj2KJU9ASlFrK5x2i1j/7Jsbk4krJQWQrTZ8vOgtRZCAMCSl9f+ftnf05oRoI0UskxkUshYfeNtU69985UFOZGw1kbKLK0HACGE62oAePi+yYMG9HbTCqmthmVDQAgRi8Zu+O7gymXzJJExRojsMzoza20sS2zftX/c5Pmf7D3qD1ptj0gZh1FCdB23sFekctlcOxDQxojL7paXdhkYAb7Oy80wxhCREPjS6nfmLV6VSLNtBzKKpxkTQEInmVz6zAMDivsoraUQl5ppjGEGIQgRAJrsNsxsjCABCN7fk6nUnCdfXf7njYGwHbJJZ5gNMiMgBCWiiUkVo++ZXqG1uZT13q4TEQDE4vGa46cbziYCAV9J3/zCgjwQghm0UlLKzw4fnTnvhR0fHQjl5xqjM7U+YwLGsBC46NEZXnHW+hxmLwFs+WjP8tUbtuz8/PipaNpRQmBBbnj00OKf3XHT3T++UUr5xvotjyxcfro+ES7IzSKFecggjAqiRGOy4sbhG1c/aQwQtZakjEGieDI5f/GK5WveN66hgN+yBCECs6uNSrngpG/54bXlQ0qeXf629Pn8fnmFaiFEYO3+dPoEADRsCC4kwMwA2BCN3f7g05s2Vds9cwhJGwPN9bMlhb+HBAi+u3nPu1XVwR42QLsquQwIIIKjdCQ/UnF9ubckM18QUryRB3794qbN1T16Fziua0BfMEFrBgA77BWh3OZ81W4ChJRMJL5fMaqstG/LoDHsVWqEYAxLKSrXVr35j23hXvmO617madkVnq2irQQMG+mzvjxR/8Sza0YO6zdicElZcaFt2y0HiQhc5S5d8TYF/B1o3zeirQSYQfrEnkMndu9+HYgC4UBJn9zBA/uWDykePbJsxKB+QwYW7z14ZNf+Wl8weCUJZFbMIaIgYmCtTdpV7ChQGgh8oUBJUYFfykM1/xNSdFzH+83ILA8ws9JNfhn0WRjwISADa8M1tXUMYPlkBzbsbUGWRVjrEZQvGu98ZPYGEEEIYgNKG8dx2VGgNRD6QoGBJT19UlzdRwghlVacSIGkUCQ0oH/h4IG9y4eWjho2cMSgoiFl/fYerLnutseFtACuviiECK6jRg0tmjH5+vKh/YYPKi3t1zMYCJw7Z8zwgePKB+ysPhIIZVYStwcZJDLlqD49cx6ffWfLoDFs2HgCnDFGSmv+A1PvfmgJRewrRqCtTmzY+IKBrf85eLjmuNZGacPMRCiFEIKIUEphjLlr2oS7ZkyInaz3WZfbGkEkBF0cCzqRADP4LBE7E6va9qnXQF4sPSCiMfDyU7MmTRobPXHGY3WutoKIQghBIh5LxBtiiNxqSdspBACA2aC0/vrWVmam1hp4RETkHiF73YoFjz58q5NKx+obk2nXmKb46roqHo3H689OnTTusdm3p5JJJ63a009DxpmYMB1PVq1Z9L3rRmndei/fUqV+uOuz5a9t2Pzh/uMnz6YdJSQV5IbGDy+9946KO390AyKt/df2Xzz20smTsXBO6Eo0NNDc09w0YVhV5WKt+VKbx8zM7LWUyVSy9qv6aGPK7xd9e+f1zM2BpoyuLGkdqjn28/kvbtm6L1SQY84RITuLAAAIQfGG6MrnZ82c8QOljJSXPAAtTf35g8zcxNxr6h3Hmf+7lS+ufMcXsi1Lap3Zq8iYACJqpXvY1gdv/ek7/YsudZBa0NyNsef2F8kqTX686o0Nc55YGU0oO+TL6NIgYwdiZstnnT4Tv2f2c7FEQgi8vJSAiERIRK1qvUToCVsz75xU9fpvRw7qnUqmMwpN2UQArXU4Etrx8eG7Zy1JO64gUu3oaxFRCHJdNf6awR+vf2bsiNJ00iXsTGkRAJTW4fzw2+/tuu3+P9Y1RKUgpXTWNZzS2rIkACx9ed2BL05Yfmm4rTuSfQxWyoTyw+9s+vSmnyzaUX3AE3eV1hn1A1obY1gKUd8QvXfOcwv/UJk2nJFI3L4LDgZpiVgsGQzQrx6aPv/B6ZGwDQBKGwRAuthpAb6+4OAWYe9v67cufPq1A4eOhfIiV/SCwwMRGs2paHzosOJZ902+a9oNhQV5Lb+a5ltVTyA9Vwl2XPe9f+96YeU/39tcjZZlB/2ZxtCOIQDNl3yJZJpT6aLiXlMqxkyZOGb8NWUlRQVCWOfP5VN1Z/d8XvP+9t3rNu6s3lsLDKGI7b2WbJbuwE/OCBGJkmnXJJKAmFsQ6V9UUFLUq6gwN2QHXdc9WXf26PG6muOnvjrZAGkNAZ8d9LfzmrUjCTQ9EZt0adfVjqtAKWhS4BAIQZKwpN+ShGTYXF0X3R6Ym3ZUCLSlD9Hf4sYMwAzMbAxfoDpmjU78VsKztf3q5+Xxrf9apZtAV6ObQFejm0BXo5tAV+P/Y289/u8hrsAAAAAASUVORK5CYII=" alt="C">
+    <img class="logo-img" onclick="goHome()" style="cursor:pointer" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA8YAAADbCAYAAACvMYgZAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAVDElEQVR4nO3d2XZaOwwAUOjq//8y96HllhAIZ/AgWXs/dkhsWZYtDiHXCwAAQEK32+32/GfX6/U6YyzkJmkAAIAUXjXCn2iU2UKS8M3egqPYAADQ05GG+Jk7Kz+RHPxPwQEAIJIW99Nn7qu8IiloXnAUGwAAzurRFN+5r/JMQhSn4AAAEEnP++kjd1Ue/Zo9AObpXXRGFTUAANYw8v7orsojjXFRowqBggMAwBYz7o3uqtxpjAsaXQAUHAAAonJX5XLRGJcza+MrOAAAvDP7rjj7+zOfxrgQGx4AgGjcUYlAY1xEhIITYQwAAPCKu2ptv2cPgFput9vNR+NDW5EOcvsboJ1I9f1y6VPjo82RujwxLkDBAQCAz9yb69IYAyTmAAcAOE9jzHAu8rAmb6MGALLSGAMk5UUmADJzjhGJxnhxCg4wgqfFAEBmGmOAhLzoBQDQjsYYgFM8LQYAstMYAyTjaTEAQFsaYwAO87QYAFiBxhggEU+LAQDa0xgDcIinxQCc4RwhEo0xQBKeFgMA9KExXpxX4oAe1BYAVuR8q0tjDJCAp8UAAP1ojBnOK3GQmz0MQCvOFKLQGBeg4EBunhYDQH/uzLVpjBlKwYHc7GEAWnO2EIHGuAgFB3LytBiACmbfVWd/f+bTGDOMggO52cMArMj5xuWiMS5l5qZXcGA/T4sBqGTGfdEdlTuNcTE2P3CE2gHACCPPG2cbjzTGBY0uAooO7OdpMQBVjbg7up/yTGNc1KhioOhAfvYxAKNd/+r1tXt8XXLTGBfWsyj0LGawOk+LAeCPlvdJ91N+8nv2AJjrXhxaXsQVHAAAWnm8Wx65s7qbsoUk4YszDbKiA+dFe1psXwPM40z47F2MIo6V2Dwx5ou9r8gpOrAu+xuA6JxVtCKRAAAgIE+MYRwfvgUAAEBpGmMAAABK0xgDAEBA3roM42iMAQAAKE1jDAAAQGkaYwAAAErTGAMAAFCaxhgAAIDSNMYAAACUpjEGAACgtN+zBwAAAMBct9vt9urPq/w+bY0xwCLeHWiXS51DjbZ+yql35FoNR3LjmVyBcc7s2a3/N/ueTj34T84W7eyLSy0tLil3cj+eluv7jnWvS37xzojceCZXvpqxBu9YmzzkzX4pBvnJ6IXPsrisbWTey/nxohxo1n5ds3NMbsU0Oy/eqZwvkdak1zpUmGNvkWL4SdQYhxzUJ9EWPurispYoeS/f+4iyvj9Zfe0jrUGFy+ej1XMrsqg58ZNq+RJpjSrUpmz5FSl2R0SKd5iBfJJl0SMt7qNI8esdo9XmGmk+z6LmexaR1/aTFdc+0nq0jG+keW2xYm5FlC0vXqmSK5HWSmMcQ6R4tTQ79qE/fCvjoj+OefbikluG/L+PUa7vk2FtP7H28WXNM7nVT9aceMedi2pW28PPZtf/kI3xKos+e3HJKWP+y/VtMq7tJ9Y+nlXyTG61s0pO/ES+sLIKe/jRrBe9QjXGqy66Ys0WK+T/7Xa7yfPvVljbT9S5GFbMNbl13Ir58Il8YTUV9/GjkXs6RGNcZcEVa95ZaQ/I839WWtetrP8cFXJNbm1XIR8+kS9kZx9/NWJP/+r1hbe4/TVzDDNUnTffrZwLq85ri5XXdavq8x+pWqyrzXcv8flKPMhI3r7X84415Ymxxf7Dq5m1VdgHFXO8wrpuVXH9R6qca35s47vK+fCJWkQm9vI2Pfb18CfGFvs7Mamn2ppXmK+nxO+JS3tiKgZ3as92YkVk8vOYlnEb1hhb7J+JTx1V13nVedu724hTO+L4T/W8qjz3M8SNaOTkeS3OgyGNscXeTqzWVf0Cd7msl9+rzWcEMTtH/F6rGJeKc25J/IhCLrZ1Jp7dG2OLvZ+Yrcea/rNKLFaZxwxid4y4/axKfLzI2o5YMpv86+Po3u7WGCs254gfK8ue29nHH4EY7iNe26wep9XnN4u4ApdLp8ZYgWlHLPOzhq9ljIsXrNoSy23EaZ9V47XqvKIQX0aTc30d+bTq5o2xRW5PTPOydvAze+Rn4nPManFbbT5RiTOjyLWYmjbGFrkfsWVFmfI601izEdvXxOWcVeK3yjyyEG96k2P9Hf3dxs0aY4vcnxizogx5nWGM2YnxV+LRRvY4Zh9/VuIONTVpjBWQccSaFUXO68hjA9al9swl/vQgr/o7+rT4cmnQGFvgsc4sNrCP+jaWeNNDxrzKOOYVWQfI5WyfdKoxVjDGuf41exzQS7R6Em08VYg7PWTKq0xjrcB60Ipciu9wY2xxx9EQw1jq21ziTw8Z8irDGCuyLpwlh/pr0S8daowt7jiaYiqJUFsijAGoR+2JzfrA+nY3xgrDOJpiGEt9i8Na0EPUvIo6Lr6yThBTq56p6e8xpg0/T0xlLh7cyQV6iJZX0cYDtGWP57GrMbaw/WmIYQ71DYBPnBUQS8veaXNjrBD0pymGP0bXG/UtLmtDD1HyKso42Me6wZp+zx4AGmIAqEZzldvtdru5v/FJpn2+JZ+jzaf1HtzUGEcLwkoUVXht1KVDfYvPBbSvjJehFmbm1Wrx3BPH1eYOWR2pf+/+z4x93aN+f2yMFbB+XPTYY2++2LusRHPcxtEYPv8/9aW2M3txpVxSl8ioR86usq+9lXoShZQtWl0+shao3laKixdOeKf3JShzLs1obLLGq1ecsueS5pgsRuZp733day4/NsYZC1R0iief9LzE2tPrOJsnGV/ddQHdZ1Ss1Je1zbhMyyVYR6YXvzwxHsiFjp+MyI9sl46ejVCWGDzr/dQma1z4Z9ZZkzWHRr7gkik2M+8s2XLJi3a8Eil/o+Rniya551ze/rqmSIu5gigJSUyj80M+5nP9a5Xvc5Sz6WcR1i56Ds2SKXejrF+UcQDtRTwrXj4xzlS8Pzka8FYxiLbgxOPpzniZ5iw/2CraeXO9Xq9Z8scTvz8ixiBLLZJDcMyePd57jy35VuoWQYv+qJ/8ouRHpstrNRFyRH7EFyFP3snS1PSWYf6R8+hyUYtgdZ/OixE16u1bqbO5Puj1tff+n9bjYB3yY7vWF6EMF6toby+KNJbLJccajhJtbd7JMs6qsqxP9HGqTXDezDvQt8Y426YeGbwt3yvahZZ4IuZHxDFVFXUtoo6rsmxrEn28ve4/0e9V0dflWbbxAsc89lSj9n3qJ8aziuO75lexJjP5O1/0NYg+PmCfrHs68rijvxBCTZnzcuR+/9IYZwlalKeyM17JIDd5MlfkGpclN6KMM/JajhBlHfaKcn6TN4fuso8fRqt+bm6R7olxxEIYcUzEkyFPMoxxRdninm28qxH/fqp8psEqObTKPGCUqDUpiv8b4wyBUgCBozLUOPhklXNwlXlkJPb9OW+I7PbX7HFElOaJsUJOZpnyN9NYV5A13hHG7WDPLUIOkZ88IqroualB/i5FYxw9sQCOyF7bso8/G/HOJeKFc9UcWnVeMMLtyezxzPTrcolZvO8UOxjPvgNGiFhrIt+JzogY65Wtmkesr3KTHPqJsSLOCuTxfBGLu7xoI+La9iBf4Gf2CLRXrUkO3RgDEJvLaH+rx3jF+UW7RK4Y41eqzBNmqPCW67CNseIGrEp9A1jfqs0D26183q/YKP+KOJGVk4haMudy5rEzllzhLDnUT7XYVpsvRLFCk/x79gAAqsl8aDCWS/4ct9vtJvYAxzzfc7LU03Bvpc4SOCAHTej6rDGRRMrHqneqqvMmJvmY52lyuMYYAKjH5RFgfZGb5F/XB7MHE2EMAADQQsTLP0QRrUH+8jPG7xrTSAMGgAq8WMwZ8gfiuF6vV/3Ue/fYzK5bmz5869UgLS4AABFpRIhGTn72GJ8ZTfLhT6Vu3SzPfoUAgLx8ijAArGPGU+SmH751faHl1wcA1uXeAKxMjdtv5FP27r/H2NuwAYAK3G+AT7yler9Rb7Hu3hi/4tUSAACgIs3xcT1/dMrvMQaW5dABKvIAAuKzT4/rdb/TGAMAPPHCGtCb5vi4HjVaYwwAwHI0HWQgT49r3RxrjAEAACbRHB/XsjnWGAMAAEzkV90e16o51hgDsAQ/Ewo8UhPISHN8TIv9rjEGAHiS+XKqIYTcPD0+5mzt0xgDy3KoAABZaZD3O9Mca4wBAACC0iCPoTEGAGjAxRXoSYO8zdGnxr9bD2SLV4O1yABQm5+NBfjssW9SN1+73W63vf1l98bYYgEAALSnSW6naWN8ZjGOdPUAAHxX/V6lQaAiTfJXe+vg4cZYsAGgn+qNDazAHmYWTfJ+HxtjgQQAIAt3V/jq+QUae+S1L42xIAHE5KkDq1vlDnK9Xq9R5uJdB8ArlRrlPXXwd6RAKOBAa5EuqZeLBhcAiMXbrv/we4wBBqp84LCffJljpRewquVQtflCa9cns8czUrjGWEEDgFqc/ayoWlPBmlZolLeeMeEaY4DVaQLYQ77kE+3yWCWHqswTZsreJP/kV8RJKWwAUIMzHyCn1RrksE+MHZRAKxGLthoHjLR6zVl9fhDZKg1y2MYYAPhj1Ut/xHmtcLljPnlERdkb5F+XS9zNG/HABGhFjWMP+ZJLxLvVqjm06rwgq4j1b4vwT4wVO6CFqEVajaMquT/HanFfbT7Us2oOR713/SR8Y3y5rJswALDHKufhKvP4JOrFcJX4R51H1HUnnnsO3/6aPZ7qUjTGl0vc4gdw1ir1zcE+hhj3o6HJwz4gu1c5vFpeZ6up/zfGGQa+WrIAY0Wuc9nr2+P4s8+FvuRHDNahj8jnDDl4kXmeNE+M76IlS7TxAHllrSUVXvWOJmt8s477jMiNUtb1yDpuuNuSw3qM8b40xpGL97MIifL8hCTCmIDcMtWRT3Uv01wyyhbf6OPNdAdqKdP9JfpYq+YQ++zN4eh5v5J0T4wfzUqUn76vxIXYMlxcMtSRrWPMMJfMssQ3yzh7UXfOiz4+6E2D3N+3xjhD8X42KlG2fh+JC5wVtY4cGVfEeawkaq5cLrHHxndR1yrquB5lvD8zXotcVlf7Sf3E+FmvRDn6dSUtxJTpAhOljpytr1HmsbJoMY42np+MqAlZ6k6kS3eksUA0GfZH9PE9+/3qD6/X6zXbRB49j33vYdRy7rfb7ZblMARiutek0bWk9TmgHvY3K1dejYHcZu/XTHmkrrFFr5yOUPdfybSH7142xquZvTCzDxfgu4wvAI46/HrGRT0cY1acs+2py2XsZTJb3Zlx4c4UH9hqRF6ffTDYcyxZvG2MsxXv6KK+mgPk81ibW9SU0bVeczzGCi+krCjj/ap3LmWLxyO1jKha3xX2fs+MSjwxjsSFEOLIeEF99mr872pMpLmqheP0uBxFyqUz5OA+LZ9IrZBD8octIuR676fJEeb4k63z/bExXuHSGJELIdBTlrqtFo6354WUT/+P41a5X72bw2NOrTBPWM3Wffl8Pqy+nz0xnsSFEGJY5YKalVo4X9X8l3f9VMgp+cMW2fdC9vHv9fHXNdn4/dz+mj0OqE6dm0sdpCJ1Jy9rxxbOtnw2/R5jBaAvGweoTh1kpCj3mijjAFjVnjq7qTGmP5dCmMsFdT51kIrUnlysF1s4z3La3BgrBP15azXMpc7NpwbSW8R9HnFMfGed2MI5FsfePbvribGCMIYNBVSmBtKLewxHyR1Y3+63UisMY7gYwhxqXAxqINWoPZCfsyu3Qz9jrHiP4a3VMIcaF4P6R0sZ9nWGMVZkXdjCmRXLkX3rw7cSsNFgPBehGNQ/Wsi0nzONtQLrAfkc3beHG2OFYiyXQxhPnYtB/aMatScG68BWzqk1nHpirGCMZdPBeOpcDOofR2Xdw1nHvQrxh5zO7N3Tb6VWOMZyOYTx1Ln5rAFHZM+b7OPPStzZS87EcHYdmvyMsWQYR6xhDntvnqqxrzrvVlaJ3yrzyEK8OUruxHT7wfO/bfbhW5KhPzGGuezB8arHvPr8j1otbte/Zo9jZWJMC/Jonue4b/ntPs//pumnUkuEfsQWYrAXxxHrP8Rhn5XjtfLcZhJXWpNTY71qip///tHz/7//++a/rkkitCemEIs92Z8YfyUe21SIU4U5jiSe9OLp8RhbmuLnt1C/W5suv8dYIrQhjhCXvdmHuveeuPysUnwqzbUXtYZR5Fk/n2J7b4qf//z+Z4///3a73bo0xo+D6fn1VyZ2EJ+LVVti+ZkYvVYxLurPceLGaPZre2fj2fXDt96RBPuJGeRiz54nhtuJ1VfV41F9/ntoTphNDrbxLoaPze6ROP8+M6it3j3G5isbBfK671+1bh917xjnqtx5pP58Jl+IxJ49puU+HvYzxu++uaL0ntjAGuzlbZwJ51WOYdV5fyIu31XeJ8QnP7cbEachT4wfeYXkK5sB1qPOvafmtVfp6bH8+Uz9+Ue+kIV9+97RfXz/9Ok9fz+8Mb6rdJC/o2DD2hx0/6h3fVXINTm0T4WceEeukNVj7lbcu4+O7ONP/eXz3z//22mN8eVSt2gr2FBL1Vp3uah3o634orMcOqdS/ZErrKTS3n3Wai+/it1P5+TUxviuysIr2FCbWscIq+SZPGpr1SdR8oTVrbp3n7Xay68a3y1f+3q9XkM0xnerLryiDTxapXF5ptbFkjXP5FF/WXPjkTyhohV7pR57+dNbpt+NIVRj/Ch70VawgU9WOODUuvgy5Jk8miNDbjySJ+uytvs9xyzDHr5cxq31lh8teh5LqiTMsOBRN3ak2PWOUaW5sqZIOfxs5ZyOFvfVa+XKuZTd7Ny4kyNwjr38zz0WP41l+iCPstBAFTPrXaUaF+VcuRsZ+xFzr5RLK5IjsJbWe3qF/Zt+Ao8UbaCSljVPbavdGL9zJCYRxs0cn35NysixAOxVpkjtOdwVb4B6NMYAUFfYD99qzQUDAACAV37NHgAAAADMpDEGAACgNI0xAAAApWmMAQAAKE1jDAAAQGkaYwAAAErTGAMAAFCaxhgAAIDSNMYAAACUpjEGAACgNI0xAAAApWmMAQAAKE1jDAAAQGkaYwAAAErTGAMAAFCaxhgAAIDSNMYAAACUpjEGAACgNI0xAAAApWmMAQAAKE1jDAAAQGkaYwAAAErTGAMAAFCaxhgAAIDSNMYAAACUpjEGAACgNI0xAAAApWmMAQAAKE1jDAAAQGkaYwAAAErTGAMAAFCaxhgAAIDSNMYAAACUpjEGAACgNI0xAAAApWmMASCY6/V6nT0GAKjkP6Hrkegyf/v1AAAAAElFTkSuQmCC" alt="Cinepolis">
+    <div class="crumb">
+      India IT &middot; KPI Review<br>
+      <span class="status"><span class="dotlive" id="liveDot"></span><span id="liveText">Connecting...</span></span>
+    </div>
+  </div>
+  <h1 class="maintitle" onclick="goHome()">India IT KPI Dashboard</h1>
+  <button onclick="loadFromSheet()" style="position:absolute;right:36px;top:104px;z-index:3;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:9px;padding:8px 15px;font-weight:600;font-size:12.5px;cursor:pointer;backdrop-filter:blur(4px);font-family:inherit">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>
+    Refresh now
+  </button>
+  <div class="subtitle">Ticket volumes, SLA compliance, team performance, and cinema uptime across the IT function</div>
+</header>
+
+<nav class="tabs">
+  <div class="tab" data-k="helpdesk" onclick="switchTab('helpdesk',this)">
+    <div class="bar-top"></div>
+    <div class="tt">IT Helpdesk</div><div class="ts">Service desk tickets and SLA</div>
+  </div>
+  <div class="tab" data-k="ops" onclick="switchTab('ops',this)">
+    <div class="bar-top"></div>
+    <div class="tt">IT Operations</div><div class="ts">Infrastructure tasks and resolution time</div>
+  </div>
+  <div class="tab" data-k="rsit" onclick="switchTab('rsit',this)">
+    <div class="bar-top"></div>
+    <div class="tt">RSIT</div><div class="ts">Cinema side uptime and field IT</div>
+  </div>
+</nav>
+
+<main>
+
+<div class="setup" id="setupBanner">
+  <b>Live from Google Sheets.</b> This dashboard reads your published sheet and refreshes automatically every 60 seconds. Edit any cell in the sheet and the changes appear here shortly.
+  <button onclick="loadFromSheet()" style="margin-left:10px;display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-weight:600;font-size:12.5px;cursor:pointer;font-family:inherit">
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>
+    Refresh now
+  </button>
+  <div id="diagOut" style="margin-top:10px;font-size:12.5px;line-height:1.6"></div>
+</div>
+
+<!-- HELPDESK -->
+<section class="panel" id="p-helpdesk">
+  <div class="sectionhead"><h2>IT Helpdesk, Service Desk KPIs</h2>
+    <span class="pill good" id="hdPill">SLA Healthy</span>
+    <button class="refreshbtn" onclick="refreshNow()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>Refresh now</button>
+  </div>
+  <div class="kpis">
+    <div class="kpi c1"><div class="lab">Total tickets (window)</div><div class="val kTotal" id="hdTotal">--</div><div class="sub kWindow" id="hdWindow">reporting window</div></div>
+    <div class="kpi c2"><div class="lab">Closed tickets</div><div class="val kClosed" id="hdClosed">--</div><div class="sub kClosedRate" id="hdClosedRate">closure rate</div></div>
+    <div class="kpi c3"><div class="lab">Open / pending</div><div class="val kPending" id="hdPending">--</div><div class="sub">Active queue</div></div>
+    <div class="kpi c4"><div class="lab">SLA compliance</div><div class="val kSla" id="hdSla">--</div><div class="sub">Target: 97.5%</div></div>
+  </div>
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="cardc"><h3>Monthly ticket volume and SLA %</h3><div class="chartbox"><canvas id="hdMonthly"></canvas></div></div>
+    <div class="cardc"><h3>Weekly ticket trend &middot; Week 23 (05 to 11 Jun 2026)</h3><div class="peakcard" id="hdPeak"></div><div class="chartbox"><canvas id="hdWeekly"></canvas></div></div>
+  </div>
+  <div class="grid g3">
+    <div class="cardc"><h3>Agent performance</h3>
+      <div class="agenthead"><span>Agent</span><span class="r">Tickets</span><span class="r">SLA %</span></div>
+      <div class="agentlist" id="hdAgents"></div>
+    </div>
+    <div class="cardc"><h3>Ticket categories</h3><div class="chartbox sm"><canvas id="hdCats"></canvas></div></div>
+    <div class="cardc"><h3>Open ticket aging (days)</h3><div class="chartbox sm"><canvas id="hdAging"></canvas></div></div>
+  </div>
+</section>
+
+<!-- OPERATIONS -->
+<section class="panel" id="p-ops">
+  <div class="sectionhead"><h2>IT Operations, Infrastructure and Task KPIs</h2>
+    <span class="pill warn" id="opPill">SLA Below Target</span>
+    <button class="refreshbtn" onclick="refreshNow()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>Refresh now</button>
+  </div>
+  <div class="kpis">
+    <div class="kpi c1"><div class="lab">Total tickets (window)</div><div class="val kTotal">--</div><div class="sub kWindow">reporting window</div></div>
+    <div class="kpi c2"><div class="lab">Closed tickets</div><div class="val kClosed">--</div><div class="sub kClosedRate">closure rate</div></div>
+    <div class="kpi c3"><div class="lab">Open / pending</div><div class="val kPending">--</div><div class="sub">Active queue</div></div>
+    <div class="kpi c4"><div class="lab">SLA compliance</div><div class="val kSla">--</div><div class="sub">Target: 97.5%</div></div>
+  </div>
+  <div class="cardc" style="margin-bottom:16px"><h3>Monthly ticket volume and SLA %</h3><div class="chartbox"><canvas id="opMonthlyShared"></canvas></div></div>
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="cardc"><h3>Weekly ticket trend &middot; Week 23 (05 to 11 Jun 2026)</h3><div class="peakcard" id="opPeak"></div><div class="chartbox"><canvas id="opWeekly"></canvas></div></div>
+    <div class="cardc"><h3>Agent performance</h3>
+      <div class="agenthead"><span>Agent</span><span class="r">Tickets</span><span class="r">SLA %</span></div>
+      <div class="agentlist" id="opAgents"></div>
+    </div>
+  </div>
+  <div class="grid g2">
+    <div class="cardc"><h3>Ticket categories</h3><div class="chartbox sm"><canvas id="opCats"></canvas></div></div>
+    <div class="cardc"><h3>Open ticket aging (days)</h3><div class="chartbox sm"><canvas id="opAging"></canvas></div></div>
+  </div>
+</section>
+
+<!-- RSIT -->
+<section class="panel" id="p-rsit">
+  <div class="sectionhead"><h2>RSIT, Cinema IT Uptime</h2>
+    <span class="pill good" id="rsPill">Fleet uptime</span>
+    <button class="refreshbtn" onclick="refreshNow()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>Refresh now</button>
+  </div>
+  <div class="statusstrip" id="rsStatusCounts"></div>
+  <div class="kpis">
+    <div class="kpi c1"><div class="lab">Total tickets (window)</div><div class="val kTotal">--</div><div class="sub kWindow">reporting window</div></div>
+    <div class="kpi c2"><div class="lab">Closed tickets</div><div class="val kClosed">--</div><div class="sub kClosedRate">closure rate</div></div>
+    <div class="kpi c3"><div class="lab">Open / pending</div><div class="val kPending">--</div><div class="sub">Active queue</div></div>
+    <div class="kpi c4"><div class="lab">SLA compliance</div><div class="val kSla">--</div><div class="sub">Target: 97.5%</div></div>
+  </div>
+  <div class="kpis">
+    <div class="kpi c1"><div class="lab">Cinemas monitored</div><div class="val" id="rsCount">--</div><div class="sub">Fleet wide</div></div>
+    <div class="kpi c2"><div class="lab">Average uptime</div><div class="val" id="rsAvg">--</div><div class="sub">Across all sites</div></div>
+    <div class="kpi c3"><div class="lab">Total downtime</div><div class="val" id="rsDown">--</div><div class="sub">Sum across sites</div></div>
+    <div class="kpi c4"><div class="lab">Worst site downtime</div><div class="val" id="rsWorst">--</div><div class="sub" id="rsWorstName">worst site</div></div>
+  </div>
+  <div class="cardc">
+    <h3>Cinema IT uptime detail</h3>
+    <div class="scrollbox">
+      <table class="up">
+        <thead><tr><th>Location</th><th class="r">Downtime (h)</th><th class="r">Uptime</th><th style="width:34%">Availability</th></tr></thead>
+        <tbody id="rsTable"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>Cinepolis India &middot; IT KPI Dashboard &middot; Live from Google Sheets &middot; Auto refresh every 60 seconds.</footer>
+
+<script>
+/* =========================================================
+   DATA SOURCE: Excel upload (read in-browser via SheetJS)
+   Click "Upload Excel" and pick the workbook in the template format.
+   Every tab is parsed and the dashboard re-renders. The last file is
+   remembered on this device. SAMPLE below is the fallback until upload.
+   ========================================================= */
+const SAMPLE = {
+  hdBoard:{total:301,closed:292,pending:18,sla:99.65},
+  hdMonthly:{labels:['Jan','Feb','Mar','Apr','May'],total:[897,1154,1349,1042,351],closed:[882,1162,1354,1044,339],sla:[99.98,99.23,99.41,99.62,100],currentSla:99.5,target:97.5},
+  trends:{labels:['Fri 05','Sat 06','Sun 07','Mon 08','Tue 09','Wed 10','Thu 11'],total:[50,38,36,53,37,52,35],closed:[50,40,35,50,33,52,32]},
+  agents:{labels:['Lakshmishree A R','Lakshay','Komal','Manish','Nitesh Mishra'],data:[74,65,64,59,48],sla:[99.8,98.9,97.2,96.1,94.3]},
+  category:{labels:['Price Card','Troubleshooting','Promotions and F&B','Movie Creation'],data:[105,73,71,43]},
+  aging:{labels:['0 to 1d','2 to 3d','4 to 7d','Over 7d'],data:[10,5,2,1]},
+  opsMonthly:{labels:['Jan','Feb','Mar','Apr','May'],total:[115,76,79,51,45],closed:[59,123,149,47,81],sla:[93.22,93.55,95.97,91.49,97.53]},
+  uptime:[
+    ['Cinépolis Pacific Mall NSP',0.0,100.0],
+    ['Cinépolis Unity One (Rohini)',0.0,100.0],
+    ['Cinépolis Janak',0.0,100.0],
+    ['Cinépolis V3S',0.0,100.0],
+    ['Cinépolis V3S East Centre',0.32,99.99],
+    ['Cinépolis Cross River',0.0,100.0],
+    ['Cinépolis Unity Dwarka',0.0,100.0],
+    ['Cinépolis Smart Bharat (Spice)',0.0,100.0],
+    ['Cinépolis Grand Venice',0.0,100.0],
+    ['Fun DD City',0.0,100.0],
+    ['Cinépolis World Trade Park',1.67,99.95],
+    ['Cinépolis Triton Mega',0.0,100.0],
+    ['Fun City',118.52,96.79],
+    ['Cinépolis JO!',0.0,100.0],
+    ['Cinépolis One Awadh Center',0.0,100.0],
+    ['Fun FR Lucknow',0.0,100.0],
+    ['Cinépolis PVP Square',0.0,100.0],
+    ['Cinépolis Power One',5.0,99.86],
+    ['Cinépolis Sreekanya',0.0,100.0],
+    ['Cinépolis BSR',2.62,99.93],
+    ['Cinépolis Coimbatore',0.0,100.0],
+    ['Cinépolis CCPL',0.0,100.0],
+    ['Cinépolis Mantra',18.25,99.51],
+    ['Cinépolis Sudha',0.0,100.0],
+    ['Cinépolis DSL Virtue',0.0,100.0],
+    ['Cinépolis Manjeera',0.0,100.0],
+    ['Cinépolis TNR',0.0,100.0],
+    ['Cinépolis Central',1.83,99.95],
+    ['Cinépolis P&M.',0.0,100.0],
+    ['Cinépolis Grand Mall',0.0,100.0],
+    ['Cinépolis Gravity Mall',0.0,100.0],
+    ['Cinépolis Seasons',0.0,100.0],
+    ['Cinépolis VIP Seasons',0.0,100.0],
+    ['Cinépolis Nexus Westend',0.0,100.0],
+    ['Cinépolis Nexus Esplanade',0.0,100.0],
+    ['Cinépolis Acropolis',0.0,100.0],
+    ['Cinépolis Lake Mall',0.0,100.0],
+    ['Cinépolis Nexus Ahmedabad',0.0,100.0],
+    ['Cinépolis Imperial Square',0.0,100.0],
+    ['Cinépolis Inorbit',0.0,100.0],
+    ['Cinépolis Vandana',0.0,100.0],
+    ['Cinépolis Kankubag',0.0,100.0],
+    ['Cinépolis Aashima',0.0,100.0],
+    ['Cinépolis DB City',0.0,100.0],
+    ['Cinépolis Bansal',0.0,100.0],
+    ['Cinépolis Gokulam Galleria',0.0,100.0],
+    ['Cinépolis Centre Square VIP',0.0,100.0],
+    ['Cinépolis Centre Square',0.0,100.0],
+    ['Cinépolis Mall of Travancore (MC',0.0,100.0],
+    ['Cinépolis Secura',0.0,100.0],
+    ['Cinépolis Urban Oasis',23.28,99.37],
+    ['Cinépolis Orion Avenue',0.0,100.0],
+    ['Cinépolis Nexus Shanti',0.0,100.0],
+    ['Cinépolis Royal Meenakshi',0.0,100.0],
+    ['Cinépolis ETA Namma',0.0,100.0],
+    ['Cinépolis City Centre',0.0,100.0],
+    ['Cinépolis SJR Spectrum',0.0,100.0],
+    ['Cinépolis Global Lulu',0.0,100.0],
+    ['Cinépolis Global Lulu VIP',0.0,100.0],
+    ['Cinépolis Jagat',0.3,99.99],
+    ['Fun FR Chandigarh',5.67,99.85],
+    ['Fun Galaxy',5.8,99.84],
+    ['Fun Mittal Mega',0.0,100.0],
+    ['Cinépolis Bestech Square',0.0,100.0],
+    ['Cinépolis Nexus Amritsar',0.0,100.0],
+    ['Fun Mittal City',0.0,100.0],
+    ['Cinépolis MBD Neopolis',0.0,100.0],
+    ['Cinépolis VR',0.0,100.0],
+    ['Cinépolis Viviana',0.0,100.0],
+    ['Cinépolis VIP Viviana',0.0,100.0],
+    ['Cinema Star High Street',0.0,100.0],
+    ['Cinépolis Magnet',0.0,100.0],
+    ['Cinépolis Andheri',0.0,100.0],
+    ['Cinépolis Nexus Seawoods',0.0,100.0],
+    ['Fun K Star Chembur',0.0,100.0],
+    ['Cinépolis Aurum',0.0,100.0],
+    ['Cinépolis DLF Avenue (Saket)',0.0,100.0],
+    ['Cinépolis Savitri',0.0,100.0],
+    ['Cinépolis Reach Airia',0.0,100.0],
+    ['Cinépolis The Esplanade',0.0,100.0],
+    ['Cinépolis Ireo',0.0,100.0],
+    ['Cinépolis Pacific Mall FBD',0.0,100.0]
+  ]
+};
+
+/* ---------- Google Sheets (published CSV) live layer ---------- */
+const SHEET_ID = "1bNGShwc6xNBp1trK5bKukWj0Qgnk2fMRRvXIvo0BDqg";
+const GIDS = {
+  helpdeskMonthly: "0",
+  helpdeskBoard:   "1397472412",
+  trends:          "688791424",
+  category:        "1192289919",
+  aging:           "1460575695",
+  agents:          "747325767",
+  opsMonthly:      "1931427096",
+  uptime:          "1779011437"
+};
+let DATA_SOURCE='sample';
+
+const numv=v=>{ if(v===null||v===undefined||v==='') return null; const n=parseFloat(String(v).replace(/[^0-9.\-]/g,'')); return isNaN(n)?null:n; };
+
+function parseCSV(text){
+  const rows=[];let row=[],cur='',q=false;
+  for(let k=0;k<text.length;k++){const c=text[k];
+    if(q){ if(c==='"'&&text[k+1]==='"'){cur+='"';k++;} else if(c==='"'){q=false;} else cur+=c; }
+    else { if(c==='"')q=true; else if(c===','){row.push(cur);cur='';} else if(c==='\n'){row.push(cur);rows.push(row);row=[];cur='';} else if(c==='\r'){} else cur+=c; }
+  }
+  if(cur!==''||row.length){row.push(cur);rows.push(row);}
+  return rows.filter(r=>r.some(x=>x!==''));
+}
+
+async function fetchTab(gid){
+  // gviz CSV by gid (works once sheet is link-viewable); fall back to published pub CSV by gid
+  const bust=Date.now();
+  const gviz="https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/gviz/tq?tqx=out:csv&gid="+gid+"&_cb="+bust;
+  try{
+    const r=await fetch(gviz,{cache:'no-store'});
+    if(r.ok){ const t=await r.text(); if(t.indexOf('<!DOCTYPE')===-1 && t.indexOf('<html')===-1){ const rows=parseCSV(t); if(rows.length>1) return rows; } }
+  }catch(e){}
+  const pub="https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/pub?output=csv&gid="+gid+"&single=true&_cb="+bust;
+  const r2=await fetch(pub,{cache:'no-store'});
+  if(!r2.ok) throw new Error('HTTP '+r2.status);
+  const t2=await r2.text();
+  if(t2.indexOf('<!DOCTYPE')>-1||t2.indexOf('<html')>-1) throw new Error('not published');
+  return parseCSV(t2);
+}
+
+function mapRows(D, key, rows){
+  if(!rows) return;
+  if(key==='helpdeskMonthly'){
+    const body=rows.slice(1).filter(x=>x[0]&&numv(x[1])!==null);
+    let cur=null,tgt=null;
+    rows.forEach(row=>{ const lab=row.map(c=>String(c||'').toLowerCase()).join(' '); const fn=row.map(numv).find(n=>n!==null);
+      if(lab.includes('current')&&lab.includes('sla')&&fn!=null) cur=fn; else if(lab.includes('target')&&fn!=null) tgt=fn; });
+    if(body.length) D.hdMonthly={labels:body.map(x=>String(x[0])),total:body.map(x=>numv(x[1])),closed:body.map(x=>numv(x[2])),sla:body.map(x=>numv(x[3])),currentSla:cur!=null?cur:99.5,target:tgt!=null?tgt:97.5};
+  } else if(key==='helpdeskBoard'){
+    let v=null; for(const row of rows){ if(numv(row[0])!=null){v=row;break;} } if(v) D.hdBoard={total:numv(v[0]),closed:numv(v[1]),pending:numv(v[2]),sla:numv(v[3])};
+  } else if(key==='trends'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null).slice(0,7); if(b.length) D.trends={labels:b.map(x=>String(x[0]).trim()),total:b.map(x=>numv(x[1])),closed:b.map(x=>numv(x[2]))};
+  } else if(key==='category'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.category={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1]))};
+  } else if(key==='aging'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.aging={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1]))};
+  } else if(key==='agents'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.agents={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1])),sla:b.map(x=>numv(x[2]))};
+  } else if(key==='opsMonthly'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.opsMonthly={labels:b.map(x=>String(x[0])),total:b.map(x=>numv(x[1])),closed:b.map(x=>numv(x[2])),sla:b.map(x=>numv(x[3]))};
+  } else if(key==='uptime'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.uptime=b.map(x=>[String(x[0]).trim(),numv(x[1]),numv(x[2])]);
+  }
+}
+
+async function loadFromSheet(){
+  const keys=Object.keys(GIDS);
+  const settled=await Promise.allSettled(keys.map(k=>fetchTab(GIDS[k])));
+  const D={};
+  const ok=[],fail=[];
+  settled.forEach((s,idx)=>{
+    if(s.status==='fulfilled' && s.value && s.value.length>1){ mapRows(D, keys[idx], s.value); ok.push(keys[idx]); }
+    else fail.push(keys[idx]);
+  });
+  const firstErr = (settled.find(s=>s.status==='rejected')||{}).reason;
+  const reasonMsg = firstErr ? (firstErr.message||String(firstErr)) : 'unknown';
+  console.log('[Dashboard] sheet tabs ok:',ok,'failing:',fail,'| reason:',reasonMsg,'| protocol:',location.protocol);
+  if(Object.keys(D).length===0){ setStatus('error'); showSheetError(fail.length, reasonMsg); return false; }
+  applyData(D, true);   // load data, stay on home page
+  const sb=document.getElementById('setupBanner'); if(sb && fail.length===0) sb.classList.add('hide');
+  return true;
+}
+
+function showSheetError(n, reason){
+  const out=document.getElementById('diagOut'); if(!out) return;
+  const proto=location.protocol;
+  let msg='';
+  if(proto==='file:'){
+    msg='<b style="color:#b00">Opened as a local file.</b> The address bar shows <code>file://</code>, and browsers block file pages from reading Google. '+
+        '<b>Fix:</b> host it (e.g. run <code>python -m http.server 8000</code> in this folder, then open <code>http://localhost:8000/cinepolis_dashboard.html</code>), or put it on your server.';
+  } else if(reason && /Failed to fetch|NetworkError|blocked|CORS/i.test(reason)){
+    msg='<b style="color:#b00">The request was blocked ('+reason+').</b> This usually means the page is running inside a preview/sandbox, or a network/extension is blocking docs.google.com. '+
+        '<b>Fix:</b> download this file and open it directly in Chrome/Edge over http (not in a preview pane), and make sure the sheet Share is <b>Anyone with the link &rarr; Viewer</b>.';
+  } else if(reason && /not published|HTTP 4|HTTP 5/i.test(reason)){
+    msg='<b style="color:#b00">Google rejected the request ('+reason+').</b> The sheet is not readable yet. '+
+        '<b>Fix:</b> Share &rarr; <b>Anyone with the link &rarr; Viewer</b>, and File &rarr; Share &rarr; <b>Publish to web</b> (Entire document). Wait a minute and Refresh.';
+  } else {
+    msg='<b style="color:#b00">Could not read the sheet ('+n+' tabs). Reason: '+(reason||'unknown')+'.</b> '+
+        'Check Share = Anyone with the link (Viewer), Publish to web is on, and that this page runs over http (not file://).';
+  }
+  out.innerHTML=msg;
+  const sb=document.getElementById('setupBanner'); if(sb) sb.classList.remove('hide');
+}
+
+function applyData(D, stayHome){
+  clearNoData();
+  DATA=Object.assign(DATA?DATA:JSON.parse(JSON.stringify(SAMPLE)), D);
+  DATA_SOURCE='live';
+  setStatus('live');
+  fillSharedKpis();
+  if(stayHome){ goHome(); return; }
+  const active=document.querySelector('.tab.active');
+  if(active){ switchTab(active.dataset.k, active); } else { goHome(); }
+}
+
+/* ---------- core globals (palette, chart registry, current data) ---------- */
+const C={navy:'#0B285B',blue:'#4781FF',teal:'#35CBCC',green:'#53cb7a',yellow:'#FFBE06',coral:'#F66E4E',purple:'#8234CF',magenta:'#BD3168',muted:'#6b7689',line:'#e3e8f0'};
+Chart.defaults.font.family="'Montserrat',system-ui,sans-serif";
+Chart.defaults.font.size=12;Chart.defaults.font.weight=500;Chart.defaults.color=C.muted;
+try{Chart.unregister(ChartDataLabels);}catch(e){}
+let charts={};
+let DATA=JSON.parse(JSON.stringify(SAMPLE));
+
+function setStatus(kind){
+  const dot=document.getElementById('liveDot'),txt=document.getElementById('liveText');
+  dot.className='dotlive';
+  if(kind==='live'){
+    txt.textContent='Live '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    const sb=document.getElementById('setupBanner'); if(sb) sb.classList.add('hide');
+  }
+  else if(kind==='sample'){dot.classList.add('stale');txt.textContent='Sample data (upload Excel)';}
+  else if(kind==='error'){dot.classList.add('err');txt.textContent='Showing last data';}
+}
+
+/* ---------- render (build or update charts in place) ---------- */
+function upsert(id,cfg){
+  if(charts[id]){
+    const ch=charts[id];
+    ch.data.labels=cfg.data.labels;
+    ch.data.datasets.forEach((ds,i)=>{ const nd=cfg.data.datasets[i]; if(nd){ds.data=nd.data;
+      if(nd.backgroundColor!==undefined)ds.backgroundColor=nd.backgroundColor;
+      if(nd.pointBackgroundColor!==undefined)ds.pointBackgroundColor=nd.pointBackgroundColor;
+      if(nd.pointBorderColor!==undefined)ds.pointBorderColor=nd.pointBorderColor;
+      if(nd.pointRadius!==undefined)ds.pointRadius=nd.pointRadius;
+      if(nd.borderColor!==undefined)ds.borderColor=nd.borderColor;}});
+    ch.update();
+  }else{
+    charts[id]=new Chart(document.getElementById(id),cfg);
+  }
+}
+const pct=v=>v==null?'--':(Math.round(v*100)/100)+'%';
+
+function setAll(cls,val){document.querySelectorAll('.'+cls).forEach(e=>e.textContent=val);}
+function setTxt(id,val){const e=document.getElementById(id); if(e) e.textContent=val;}
+function upColor(v){ if(v==null) return C.muted; if(v>=99.8) return C.green; if(v>=99) return C.yellow; return C.coral; }
+function slaColor(v){ if(v==null) return C.muted; if(v>=97.5) return C.green; if(v>=95) return C.yellow; return C.coral; }
+function buildMonthlyChart(canvasId){
+  const m=DATA.hdMonthly;
+  const cur=(m.currentSla!=null?m.currentSla:99.5);
+  const tgt=(m.target!=null?m.target:97.5);
+  const line=v=>m.labels.map(()=>v);
+  upsert(canvasId,{data:{labels:m.labels,datasets:[
+    {type:'bar',label:'Total tickets',data:m.total,backgroundColor:C.blue,borderRadius:5,yAxisID:'y',maxBarThickness:26,order:3},
+    {type:'bar',label:'Closed tickets',data:m.closed,backgroundColor:C.green,borderRadius:5,yAxisID:'y',maxBarThickness:26,order:3},
+    {type:'line',label:'Monthly SLA %',data:m.sla,borderColor:C.navy,backgroundColor:C.navy,tension:.35,yAxisID:'y1',pointRadius:6,pointHoverRadius:7,borderWidth:2.5,order:1,
+      pointBackgroundColor:m.sla.map(slaColor),pointBorderColor:m.sla.map(slaColor)},
+    {type:'line',label:'Current YTD SLA ('+cur+'%)',data:line(cur),borderColor:C.teal,borderDash:[6,4],pointRadius:0,borderWidth:2.5,yAxisID:'y1',order:0},
+    {type:'line',label:'Target ('+tgt+'%)',data:line(tgt),borderColor:C.coral,borderDash:[3,3],pointRadius:0,borderWidth:2.5,yAxisID:'y1',order:0}
+  ]},options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'top',labels:{usePointStyle:true,boxWidth:8}}},
+    scales:{y:{beginAtZero:true,grid:{color:C.line}},y1:{position:'right',min:95,max:101,grid:{drawOnChartArea:false},ticks:{callback:v=>v+'%'}}}}});
+}
+function fillSharedKpis(){
+  if(!DATA){ setAll('kTotal','--');setAll('kClosed','--');setAll('kPending','--');setAll('kSla','--');setAll('kWindow','reporting window');setAll('kClosedRate','closure rate'); return; }
+  const b=DATA.hdBoard;
+  setAll('kTotal', b.total??'--');
+  setAll('kClosed', b.closed??'--');
+  setAll('kPending', b.pending??'--');
+  setAll('kSla', pct(b.sla));
+  setAll('kWindow','11 to 17 May 2026');
+  setAll('kClosedRate', (b.total&&b.closed)? (Math.round(b.closed/b.total*1000)/10+'% closure rate'):'closure rate');
+}
+
+function buildWeekly(canvasId, peakId, t){
+  let pi=0; t.total.forEach((v,i)=>{ if((v||0)>(t.total[pi]||0)) pi=i; });
+  const peakVal=t.total[pi], peakLbl=t.labels[pi];
+  const avg=Math.round(t.total.reduce((a,b)=>a+(b||0),0)/t.total.length);
+  const above=avg?Math.round((peakVal-avg)/avg*100):0;
+  const dayNames={Mon:'Monday',Tue:'Tuesday',Wed:'Wednesday',Thu:'Thursday',Fri:'Friday',Sat:'Saturday',Sun:'Sunday'};
+  const fullDay=dayNames[String(peakLbl).slice(0,3)]||peakLbl;
+  const peakBox=document.getElementById(peakId);
+  if(peakBox){peakBox.innerHTML='<div class="spark">&#9650;</div>'+
+    '<div class="ptxt">Busiest day was <b>'+fullDay+' ('+peakLbl+')</b> with <b>'+peakVal+'</b> tickets'+
+    (above>0?', about '+above+'% above the weekly average of '+avg+'.':'.')+'</div>'+
+    '<div class="ptag">Peak '+peakVal+'</div>';}
+  const totRadius=t.total.map((v,i)=>i===pi?7:4);
+  const totColors=t.total.map((v,i)=>i===pi?C.coral:C.blue);
+  upsert(canvasId,{type:'line',data:{labels:t.labels,datasets:[
+    {label:'Total',data:t.total,borderColor:C.blue,backgroundColor:'rgba(71,129,255,.12)',fill:true,tension:.4,pointRadius:totRadius,pointHoverRadius:8,pointBackgroundColor:totColors,pointBorderColor:totColors,borderWidth:2.5},
+    {label:'Closed',data:t.closed,borderColor:C.green,borderDash:[6,4],tension:.4,pointRadius:4,pointBackgroundColor:C.green,borderWidth:2.5}
+  ]},options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'top',labels:{usePointStyle:true,boxWidth:8}}},
+    scales:{y:{beginAtZero:true,grid:{color:C.line}},x:{grid:{display:false}}}}});
+}
+
+function buildAgents(boxId, ag){
+  const box=document.getElementById(boxId);
+  if(!box||!ag) return;
+  const avColors=[C.blue,C.navy,C.purple,C.teal,C.yellow,C.coral,C.magenta];
+  const max=Math.max.apply(null,ag.data.filter(x=>x!=null).concat([1]));
+  box.innerHTML='';
+  ag.labels.forEach((name,i)=>{
+    const ct=ag.data[i]!=null?ag.data[i]:0;
+    const sla=ag.sla&&ag.sla[i]!=null?ag.sla[i]:null;
+    const w=Math.round(ct/max*100);
+    const col=avColors[i%avColors.length];
+    const initials=name.split(/\s+/).map(p=>p[0]).slice(0,2).join('').toUpperCase();
+    const badge = sla==null
+      ? '<span class="slabadge" style="background:#cfd8e6;color:#56607a">n/a</span>'
+      : '<span class="slabadge" style="background:'+slaColor(sla)+'">'+(Math.round(sla*10)/10)+'%</span>';
+    box.insertAdjacentHTML('beforeend',
+      '<div class="agentrow">'+
+        '<div class="agentname"><span class="av" style="background:'+col+'">'+initials+'</span><span class="nm">'+name+'</span></div>'+
+        '<div class="agentct">'+ct+'</div>'+
+        badge+
+        '<div class="agentbarwrap"><i style="width:'+w+'%;background:'+col+'"></i></div>'+
+      '</div>');
+  });
+}
+
+function buildCats(canvasId, cat){
+  upsert(canvasId,{type:'doughnut',plugins:[ChartDataLabels],data:{labels:cat.labels,datasets:[{data:cat.data,
+    backgroundColor:[C.blue,C.green,C.coral,C.yellow,C.purple,C.teal,C.magenta].slice(0,cat.labels.length),borderWidth:2,borderColor:'#fff'}]},
+    options:{maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'right',labels:{usePointStyle:true,boxWidth:9}},
+      datalabels:{color:'#fff',font:{family:"'Montserrat',sans-serif",weight:'700',size:13},
+        formatter:(v,ctx)=>{const tt=ctx.dataset.data.reduce((a,b)=>a+b,0);return v+'\n'+Math.round(v/tt*100)+'%';},
+        textAlign:'center',textStrokeColor:'rgba(0,0,0,.25)',textStrokeWidth:3}}}});
+}
+
+function buildAging(canvasId, a){
+  upsert(canvasId,{type:'bar',plugins:[ChartDataLabels],data:{labels:a.labels,datasets:[{label:'Open tickets',data:a.data,
+    backgroundColor:[C.green,C.blue,C.yellow,C.coral,C.magenta].slice(0,a.labels.length),borderRadius:6}]},
+    options:{indexAxis:'y',maintainAspectRatio:false,layout:{padding:{right:24}},
+      plugins:{legend:{display:false},
+        datalabels:{anchor:'end',align:'end',color:C.ink,font:{family:"'Montserrat',sans-serif",weight:'700',size:13},formatter:v=>v}},
+      scales:{x:{beginAtZero:true,grid:{color:C.line}},y:{grid:{display:false}}}}});
+}
+
+function renderHelpdesk(){
+  const b=DATA.hdBoard;
+  fillSharedKpis();
+  const pill=document.getElementById('hdPill');
+  if(b.sla>=97.5){pill.className='pill good';pill.textContent='SLA Healthy '+pct(b.sla);}else{pill.className='pill warn';pill.textContent='SLA Below Target '+pct(b.sla);}
+  buildMonthlyChart('hdMonthly');
+  buildWeekly('hdWeekly','hdPeak',DATA.trends);
+  buildAgents('hdAgents',DATA.agents);
+  buildCats('hdCats',DATA.category);
+  buildAging('hdAging',DATA.aging);
+}
+
+function renderOps(){
+  const m=DATA.opsMonthly;
+  const ytdSla=m.sla.filter(x=>x!=null);
+  const avgSla=ytdSla.length?ytdSla.reduce((a,b)=>a+b,0)/ytdSla.length:null;
+  const pill=document.getElementById('opPill');
+  if(avgSla>=97.5){pill.className='pill good';pill.textContent='SLA Healthy '+pct(avgSla);}else{pill.className='pill warn';pill.textContent='SLA Below Target '+pct(avgSla);}
+  buildMonthlyChart('opMonthlyShared');
+  buildWeekly('opWeekly','opPeak', DATA.opsTrends||DATA.trends);
+  buildAgents('opAgents', DATA.opsAgents||DATA.agents);
+  buildCats('opCats', DATA.opsCategory||DATA.category);
+  buildAging('opAging', DATA.opsAging||DATA.aging);
+}
+
+function renderRsit(){
+  const all=DATA.uptime.slice();
+  const totalDown=all.reduce((a,b)=>a+(b[1]||0),0);
+  const avgUp=all.length?all.reduce((a,b)=>a+(b[2]||0),0)/all.length:0;
+  // status counts
+  let g=0,a=0,r=0; all.forEach(x=>{const v=x[2]; if(v>=99.8)g++; else if(v>=99)a++; else r++;});
+  // worst site
+  const worst=all.slice().sort((x,y)=>y[1]-x[1])[0];
+
+  setTxt('rsCount',all.length);
+  setTxt('rsAvg',pct(avgUp));
+  setTxt('rsDown',(Math.round(totalDown*10)/10)+'h');
+  setTxt('rsWorst',(Math.round(worst[1]*10)/10)+'h');
+  setTxt('rsWorstName',worst[0]+' '+pct(worst[2]));
+  setTxt('rsPill','Fleet uptime '+pct(avgUp)+' avg');
+  const sc=document.getElementById('rsStatusCounts');
+  if(sc){sc.innerHTML=
+    '<span class="scnt"><i style="background:'+C.green+'"></i>'+g+' at 99.8%+</span>'+
+    '<span class="scnt"><i style="background:'+C.yellow+'"></i>'+a+' at 99 to 99.8%</span>'+
+    '<span class="scnt"><i style="background:'+C.coral+'"></i>'+r+' below 99%</span>';}
+
+
+  // table: ALL sites, worst uptime first
+  const sorted=all.slice().sort((x,y)=>x[2]-y[2]);
+  const tb=document.getElementById('rsTable');tb.innerHTML='';
+  sorted.forEach(row=>{
+    const col=upColor(row[2]);
+    const w=Math.max(2,Math.min(100,((row[2]-96)/4*100))).toFixed(0);
+    tb.insertAdjacentHTML('beforeend',
+      '<tr><td>'+row[0]+'</td><td class="r">'+row[1].toFixed(2)+'</td>'+
+      '<td class="r upval">'+row[2].toFixed(2)+'%</td>'+
+      '<td><div class="bar"><i style="width:'+w+'%;background:'+col+'"></i></div></td></tr>');
+  });
+}
+function renderAll(){renderHelpdesk();renderOps();renderRsit();fillSharedKpis();}
+
+/* ---------- tabs ---------- */
+function showNoData(){
+  const active=document.querySelector('.panel.show');
+  if(!active) return;
+  let ph=active.querySelector('.nodata');
+  if(!ph){
+    ph=document.createElement('div');
+    ph.className='nodata';
+    active.insertBefore(ph, active.firstChild);
+  }
+  ph.innerHTML='<div class="nd-card"><div class="nd-ic">&#8635;</div>'+
+    '<div class="nd-tt">Loading from Google Sheets...</div>'+
+    '<div class="nd-tx">If this stays empty, click below to retry. The sheet must be shared as <b>Anyone with the link</b> and published to web.</div>'+
+    '<button class="nd-btn" onclick="loadFromSheet()" style="border:none;font-family:inherit">Refresh now</button></div>';
+  // hide the real content cards/charts while empty
+  active.querySelectorAll('.kpis,.cardc,.grid,.statusstrip').forEach(e=>e.style.display='none');
+}
+function clearNoData(){
+  document.querySelectorAll('.panel').forEach(p=>{
+    const ph=p.querySelector('.nodata'); if(ph) ph.remove();
+    p.querySelectorAll('.kpis,.cardc,.grid,.statusstrip').forEach(e=>e.style.display='');
+  });
+}
+function switchTab(k,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));
+  document.getElementById('p-'+k).classList.add('show');
+  if(!DATA){ showNoData(); return; }
+  // panel is now visible: (re)render this section so charts size correctly
+  if(k==='helpdesk') renderHelpdesk();
+  else if(k==='ops') renderOps();
+  else if(k==='rsit') renderRsit();
+  // make sure every chart in this panel is resized to its now-visible container
+  requestAnimationFrame(()=>{
+    Object.values(charts).forEach(ch=>{ try{ch.resize();ch.update();}catch(e){} });
+  });
+}
+function goHome(){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));
+  // always show the upload control on the home page
+  const sb=document.getElementById('setupBanner');
+  if(sb){
+    sb.classList.remove('hide');
+    const out=document.getElementById('diagOut');
+    if(out && DATA_SOURCE==='live'){ out.innerHTML='<b style="color:#1f8f4d">Data loaded.</b> Upload a new Excel file anytime to update.'; }
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ---------- refresh loop ---------- */
+function testConnection(){}
+
+function refreshNow(){ loadFromSheet(); }
+(async function init(){
+  DATA=null;
+  setStatus('sample');
+  goHome();
+  await loadFromSheet();           // pull live data on open
+  setInterval(loadFromSheet,60000); // auto refresh every 60s
+})();
+</script>
+</body>
+</html>
