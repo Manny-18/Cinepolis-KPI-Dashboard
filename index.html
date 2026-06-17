@@ -80,10 +80,12 @@
   .grid{display:grid;gap:16px}
   .g2{grid-template-columns:1fr 1fr}
   .g3{grid-template-columns:1.15fr 1fr 1.15fr}
+  .grid .cardc{display:flex;flex-direction:column}
+  .grid .cardc .chartbox{flex:1}
   .cardc{background:var(--card);border-radius:16px;padding:18px 20px 20px;box-shadow:var(--shadow)}
   .cardc h3{font-size:13px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--navy);margin-bottom:14px}
   .chartbox{position:relative;height:300px}
-  .chartbox.sm{height:260px}
+  .chartbox.sm{height:300px}
 
   table.up{width:100%;border-collapse:collapse;font-size:13px}
   table.up th{text-align:left;color:var(--muted);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;padding:8px 6px;border-bottom:1px solid var(--line)}
@@ -115,7 +117,7 @@
   .agenthead{display:grid;grid-template-columns:1.4fr 60px 64px;gap:8px;font-size:10.5px;font-weight:700;
     text-transform:uppercase;letter-spacing:.4px;color:var(--muted);padding:0 2px 8px;border-bottom:1px solid var(--line)}
   .agenthead .r{text-align:right}
-  .agentlist{display:flex;flex-direction:column;gap:0}
+  .agentlist{display:flex;flex-direction:column;gap:0;min-height:300px;justify-content:space-evenly}
   .agentrow{display:grid;grid-template-columns:1.4fr 60px 64px;gap:8px;align-items:center;padding:10px 2px;border-bottom:1px solid var(--line)}
   .agentrow:last-child{border-bottom:none}
   .agentname{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;min-width:0}
@@ -129,7 +131,7 @@
     background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
   .statusstrip .scnt{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--ink)}
   .statusstrip .scnt i{width:11px;height:11px;border-radius:3px;display:inline-block}
-  .notearea{width:100%;min-height:120px;resize:vertical;border:1px solid var(--line);border-radius:10px;
+  .notearea{width:100%;min-height:140px;resize:vertical;border:1px solid var(--line);border-radius:10px;
     padding:12px 14px;font-family:'Montserrat',sans-serif;font-size:13.5px;line-height:1.6;color:var(--ink);
     background:#fbfcfe;outline:none}
   .notearea:focus{border-color:var(--blue);background:#fff}
@@ -205,25 +207,20 @@
     <div class="kpi c3"><div class="lab">Open / pending</div><div class="val kPending" id="hdPending">--</div><div class="sub">Active queue</div></div>
     <div class="kpi c4"><div class="lab">SLA compliance</div><div class="val kSla" id="hdSla">--</div><div class="sub">Target: 97.5%</div></div>
   </div>
+  <div class="cardc" style="margin-bottom:16px"><h3>Monthly ticket volume and SLA %</h3><div class="chartbox"><canvas id="hdMonthly"></canvas></div></div>
   <div class="grid g2" style="margin-bottom:16px">
-    <div class="cardc"><h3>Monthly ticket volume and SLA %</h3><div class="chartbox"><canvas id="hdMonthly"></canvas></div></div>
     <div class="cardc"><h3>Weekly ticket trend &middot; Week 23 (05 to 11 Jun 2026)</h3><div class="peakcard" id="hdPeak"></div><div class="chartbox"><canvas id="hdWeekly"></canvas></div></div>
-  </div>
-  <div class="grid g3">
     <div class="cardc"><h3>Agent performance</h3>
       <div class="agenthead"><span>Agent</span><span class="r">Tickets</span><span class="r">SLA %</span></div>
       <div class="agentlist" id="hdAgents"></div>
     </div>
-    <div class="cardc"><h3>Ticket categories</h3><div class="chartbox sm"><canvas id="hdCats"></canvas></div></div>
-    <div class="cardc"><h3>Open ticket aging (days)</h3><div class="chartbox sm"><canvas id="hdAging"></canvas></div></div>
   </div>
-  <div class="grid g2 notesgrid" style="margin-top:16px">
-    <div class="cardc"><h3>Special Projects</h3>
-      <textarea class="notearea" id="sp_helpdesk" placeholder="Type special project updates here..."></textarea>
-    </div>
-    <div class="cardc"><h3>Remarks</h3>
-      <textarea class="notearea" id="rm_helpdesk" placeholder="Type remarks or notes here..."></textarea>
-    </div>
+  <div class="grid g2">
+    <div class="cardc"><h3>Ticket categories</h3><div class="chartbox"><canvas id="hdCats"></canvas></div></div>
+    <div class="cardc"><h3>Open ticket aging (days)</h3><div class="chartbox"><canvas id="hdAging"></canvas></div></div>
+  </div>
+  <div class="cardc notescard" style="margin-top:16px"><h3>Remarks</h3>
+    <textarea class="notearea" id="rm_helpdesk" placeholder="Type remarks or notes here..."></textarea>
   </div>
 </section>
 
@@ -248,16 +245,11 @@
     </div>
   </div>
   <div class="grid g2">
-    <div class="cardc"><h3>Ticket categories</h3><div class="chartbox sm"><canvas id="opCats"></canvas></div></div>
-    <div class="cardc"><h3>Open ticket aging (days)</h3><div class="chartbox sm"><canvas id="opAging"></canvas></div></div>
+    <div class="cardc"><h3>Ticket categories</h3><div class="chartbox"><canvas id="opCats"></canvas></div></div>
+    <div class="cardc"><h3>Open ticket aging (days)</h3><div class="chartbox"><canvas id="opAging"></canvas></div></div>
   </div>
-  <div class="grid g2 notesgrid" style="margin-top:16px">
-    <div class="cardc"><h3>Special Projects</h3>
-      <textarea class="notearea" id="sp_ops" placeholder="Type special project updates here..."></textarea>
-    </div>
-    <div class="cardc"><h3>Remarks</h3>
-      <textarea class="notearea" id="rm_ops" placeholder="Type remarks or notes here..."></textarea>
-    </div>
+  <div class="cardc notescard" style="margin-top:16px"><h3>Remarks</h3>
+    <textarea class="notearea" id="rm_ops" placeholder="Type remarks or notes here..."></textarea>
   </div>
 </section>
 
@@ -299,16 +291,11 @@
     </div>
   </div>
   <div class="grid g2" style="margin-top:16px">
-    <div class="cardc"><h3>Ticket categories</h3><div class="chartbox sm"><canvas id="rsCats"></canvas></div></div>
-    <div class="cardc"><h3>Open ticket aging (days)</h3><div class="chartbox sm"><canvas id="rsAging"></canvas></div></div>
+    <div class="cardc"><h3>Ticket categories</h3><div class="chartbox"><canvas id="rsCats"></canvas></div></div>
+    <div class="cardc"><h3>Open ticket aging (days)</h3><div class="chartbox"><canvas id="rsAging"></canvas></div></div>
   </div>
-  <div class="grid g2 notesgrid" style="margin-top:16px">
-    <div class="cardc"><h3>Special Projects</h3>
-      <textarea class="notearea" id="sp_rsit" placeholder="Type special project updates here..."></textarea>
-    </div>
-    <div class="cardc"><h3>Remarks</h3>
-      <textarea class="notearea" id="rm_rsit" placeholder="Type remarks or notes here..."></textarea>
-    </div>
+  <div class="cardc notescard" style="margin-top:16px"><h3>Remarks</h3>
+    <textarea class="notearea" id="rm_rsit" placeholder="Type remarks or notes here..."></textarea>
   </div>
 </section>
 
