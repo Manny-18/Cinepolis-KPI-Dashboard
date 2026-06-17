@@ -415,7 +415,8 @@ const GIDS = {
   agents:          "747325767",
   opsMonthly:      "1931427096",
   uptime:          "1779011437",
-  rsitAgents:      "RSIT_AGENTS_GID"   // <-- add an "RSIT Agents" tab and paste its gid here
+  rsitAgents:      "RSIT_AGENTS_GID",   // <-- add an "RSIT Agents" tab and paste its gid here
+  opsAgents:       "OPS_AGENTS_GID"     // <-- add an "Ops Agents" tab and paste its gid here
 };
 let DATA_SOURCE='sample';
 
@@ -467,6 +468,9 @@ function mapRows(D, key, rows){
     const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.agents={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1])),sla:b.map(x=>numv(x[2]))};
   } else if(key==='opsMonthly'){
     const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.opsMonthly={labels:b.map(x=>String(x[0])),total:b.map(x=>numv(x[1])),closed:b.map(x=>numv(x[2])),sla:b.map(x=>numv(x[3]))};
+  } else if(key==='opsAgents'){
+    const b=rows.slice(1).filter(x=>x[0]&&(numv(x[1])!=null||x[1]==null));
+    if(b.length) D.opsAgents={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1])),sla:b.map(x=>numv(x[2]))};
   } else if(key==='rsitAgents'){
     const b=rows.slice(1).filter(x=>x[0]&&(x[1]||numv(x[2])!=null));
     if(b.length) D.rsitAgents={region:b.map(x=>String(x[0]).trim()),agent:b.map(x=>String(x[1]||'').trim()),count:b.map(x=>numv(x[2])),sla:b.map(x=>numv(x[3]))};
@@ -532,6 +536,8 @@ Chart.defaults.font.size=12;Chart.defaults.font.weight=500;Chart.defaults.color=
 try{Chart.unregister(ChartDataLabels);}catch(e){}
 let charts={};
 let DATA=JSON.parse(JSON.stringify(SAMPLE));
+// IT Ops agents shown until the "Ops Agents" sheet tab is connected (names only)
+const OPS_AGENTS_FALLBACK={labels:['Ranbir Kumar','Mayank Sharma','Akash Mahajan','Prem Arora'],data:[null,null,null,null],sla:[null,null,null,null]};
 
 function setStatus(kind){
   const dot=document.getElementById('liveDot'),txt=document.getElementById('liveText');
@@ -622,9 +628,11 @@ function buildAgents(boxId, ag){
   const max=Math.max.apply(null,ag.data.filter(x=>x!=null).concat([1]));
   box.innerHTML='';
   ag.labels.forEach((name,i)=>{
-    const ct=ag.data[i]!=null?ag.data[i]:0;
+    const ctRaw=ag.data[i];
+    const ct=ctRaw!=null?ctRaw:0;
+    const ctLabel=ctRaw!=null?ctRaw:'--';
     const sla=ag.sla&&ag.sla[i]!=null?ag.sla[i]:null;
-    const w=Math.round(ct/max*100);
+    const w=ctRaw!=null?Math.round(ct/max*100):0;
     const col=avColors[i%avColors.length];
     const initials=name.split(/\s+/).map(p=>p[0]).slice(0,2).join('').toUpperCase();
     const badge = sla==null
@@ -633,7 +641,7 @@ function buildAgents(boxId, ag){
     box.insertAdjacentHTML('beforeend',
       '<div class="agentrow">'+
         '<div class="agentname"><span class="av" style="background:'+col+'">'+initials+'</span><span class="nm">'+name+'</span></div>'+
-        '<div class="agentct">'+ct+'</div>'+
+        '<div class="agentct">'+ctLabel+'</div>'+
         badge+
         '<div class="agentbarwrap"><i style="width:'+w+'%;background:'+col+'"></i></div>'+
       '</div>');
@@ -678,7 +686,7 @@ function renderOps(){
   if(avgSla>=97.5){pill.className='pill good';pill.textContent='SLA Healthy '+pct(avgSla);}else{pill.className='pill warn';pill.textContent='SLA Below Target '+pct(avgSla);}
   buildMonthlyChart('opMonthlyShared');
   buildWeekly('opWeekly','opPeak', DATA.opsTrends||DATA.trends);
-  buildAgents('opAgents', DATA.opsAgents||DATA.agents);
+  buildAgents('opAgents', DATA.opsAgents||OPS_AGENTS_FALLBACK);
   buildCats('opCats', DATA.opsCategory||DATA.category);
   buildAging('opAging', DATA.opsAging||DATA.aging);
 }
