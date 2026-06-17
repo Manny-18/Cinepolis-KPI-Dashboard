@@ -129,6 +129,11 @@
     background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
   .statusstrip .scnt{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--ink)}
   .statusstrip .scnt i{width:11px;height:11px;border-radius:3px;display:inline-block}
+  .notearea{width:100%;min-height:120px;resize:vertical;border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;font-family:'Montserrat',sans-serif;font-size:13.5px;line-height:1.6;color:var(--ink);
+    background:#fbfcfe;outline:none}
+  .notearea:focus{border-color:var(--blue);background:#fff}
+  .regtag{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;background:#eef2fb;color:var(--navy)}
   .nodata{padding:30px 0}
   .nd-card{max-width:520px;margin:40px auto;text-align:center;background:var(--card);border:1px solid var(--line);
     border-radius:18px;box-shadow:var(--shadow);padding:42px 32px}
@@ -212,6 +217,14 @@
     <div class="cardc"><h3>Ticket categories</h3><div class="chartbox sm"><canvas id="hdCats"></canvas></div></div>
     <div class="cardc"><h3>Open ticket aging (days)</h3><div class="chartbox sm"><canvas id="hdAging"></canvas></div></div>
   </div>
+  <div class="grid g2 notesgrid" style="margin-top:16px">
+    <div class="cardc"><h3>Special Projects</h3>
+      <textarea class="notearea" id="sp_helpdesk" placeholder="Type special project updates here..."></textarea>
+    </div>
+    <div class="cardc"><h3>Remarks</h3>
+      <textarea class="notearea" id="rm_helpdesk" placeholder="Type remarks or notes here..."></textarea>
+    </div>
+  </div>
 </section>
 
 <!-- OPERATIONS -->
@@ -237,6 +250,14 @@
   <div class="grid g2">
     <div class="cardc"><h3>Ticket categories</h3><div class="chartbox sm"><canvas id="opCats"></canvas></div></div>
     <div class="cardc"><h3>Open ticket aging (days)</h3><div class="chartbox sm"><canvas id="opAging"></canvas></div></div>
+  </div>
+  <div class="grid g2 notesgrid" style="margin-top:16px">
+    <div class="cardc"><h3>Special Projects</h3>
+      <textarea class="notearea" id="sp_ops" placeholder="Type special project updates here..."></textarea>
+    </div>
+    <div class="cardc"><h3>Remarks</h3>
+      <textarea class="notearea" id="rm_ops" placeholder="Type remarks or notes here..."></textarea>
+    </div>
   </div>
 </section>
 
@@ -266,6 +287,27 @@
         <thead><tr><th>Location</th><th class="r">Downtime (h)</th><th class="r">Uptime</th><th style="width:34%">Availability</th></tr></thead>
         <tbody id="rsTable"></tbody>
       </table>
+    </div>
+  </div>
+  <div class="cardc" style="margin-top:16px">
+    <h3>RSIT agent performance</h3>
+    <div class="scrollbox">
+      <table class="up">
+        <thead><tr><th>Region</th><th>Agent</th><th class="r">Ticket count</th><th class="r">SLA %</th></tr></thead>
+        <tbody id="rsAgentTable"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="cardc"><h3>Ticket categories</h3><div class="chartbox sm"><canvas id="rsCats"></canvas></div></div>
+    <div class="cardc"><h3>Open ticket aging (days)</h3><div class="chartbox sm"><canvas id="rsAging"></canvas></div></div>
+  </div>
+  <div class="grid g2 notesgrid" style="margin-top:16px">
+    <div class="cardc"><h3>Special Projects</h3>
+      <textarea class="notearea" id="sp_rsit" placeholder="Type special project updates here..."></textarea>
+    </div>
+    <div class="cardc"><h3>Remarks</h3>
+      <textarea class="notearea" id="rm_rsit" placeholder="Type remarks or notes here..."></textarea>
     </div>
   </div>
 </section>
@@ -385,7 +427,8 @@ const GIDS = {
   aging:           "1460575695",
   agents:          "747325767",
   opsMonthly:      "1931427096",
-  uptime:          "1779011437"
+  uptime:          "1779011437",
+  rsitAgents:      "RSIT_AGENTS_GID"   // <-- add an "RSIT Agents" tab and paste its gid here
 };
 let DATA_SOURCE='sample';
 
@@ -437,13 +480,16 @@ function mapRows(D, key, rows){
     const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.agents={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1])),sla:b.map(x=>numv(x[2]))};
   } else if(key==='opsMonthly'){
     const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.opsMonthly={labels:b.map(x=>String(x[0])),total:b.map(x=>numv(x[1])),closed:b.map(x=>numv(x[2])),sla:b.map(x=>numv(x[3]))};
+  } else if(key==='rsitAgents'){
+    const b=rows.slice(1).filter(x=>x[0]&&(x[1]||numv(x[2])!=null));
+    if(b.length) D.rsitAgents={region:b.map(x=>String(x[0]).trim()),agent:b.map(x=>String(x[1]||'').trim()),count:b.map(x=>numv(x[2])),sla:b.map(x=>numv(x[3]))};
   } else if(key==='uptime'){
     const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.uptime=b.map(x=>[String(x[0]).trim(),numv(x[1]),numv(x[2])]);
   }
 }
 
 async function loadFromSheet(){
-  const keys=Object.keys(GIDS);
+  const keys=Object.keys(GIDS).filter(k=>!/^[A-Z_]+$/.test(GIDS[k]));  // skip unset placeholder gids
   const settled=await Promise.allSettled(keys.map(k=>fetchTab(GIDS[k])));
   const D={};
   const ok=[],fail=[];
@@ -683,6 +729,32 @@ function renderRsit(){
       '<td class="r upval">'+row[2].toFixed(2)+'%</td>'+
       '<td><div class="bar"><i style="width:'+w+'%;background:'+col+'"></i></div></td></tr>');
   });
+
+  // RSIT agent table (Region, Agent, Ticket count, SLA %)
+  renderRsitAgents();
+  // RSIT category + aging charts (uses RSIT-specific data if present, else helpdesk data)
+  buildCats('rsCats', DATA.rsitCategory||DATA.category);
+  buildAging('rsAging', DATA.rsitAging||DATA.aging);
+}
+
+function renderRsitAgents(){
+  const tb=document.getElementById('rsAgentTable'); if(!tb) return;
+  const ag=DATA.rsitAgents;
+  tb.innerHTML='';
+  if(!ag||!ag.region){
+    tb.insertAdjacentHTML('beforeend','<tr><td colspan="4" style="color:var(--muted)">Add an "RSIT Agents" sheet with columns Region, Agent, Ticket Count, SLA % to populate this.</td></tr>');
+    return;
+  }
+  ag.region.forEach((reg,i)=>{
+    const sla=ag.sla&&ag.sla[i]!=null?ag.sla[i]:null;
+    const badge = sla==null ? '<span class="slabadge" style="background:#cfd8e6;color:#56607a">n/a</span>'
+      : '<span class="slabadge" style="background:'+slaColor(sla)+'">'+(Math.round(sla*10)/10)+'%</span>';
+    tb.insertAdjacentHTML('beforeend',
+      '<tr><td><span class="regtag">'+(reg||'-')+'</span></td>'+
+      '<td>'+(ag.agent[i]||'-')+'</td>'+
+      '<td class="r upval">'+(ag.count[i]!=null?ag.count[i]:'-')+'</td>'+
+      '<td class="r">'+badge+'</td></tr>');
+  });
 }
 function renderAll(){renderHelpdesk();renderOps();renderRsit();fillSharedKpis();}
 
@@ -724,6 +796,12 @@ function switchTab(k,el){
     Object.values(charts).forEach(ch=>{ try{ch.resize();ch.update();}catch(e){} });
   });
 }
+function initNotes(){
+  document.querySelectorAll('.notearea').forEach(t=>{
+    try{ const saved=localStorage.getItem('note_'+t.id); if(saved!=null) t.value=saved; }catch(e){}
+    t.addEventListener('input',()=>{ try{ localStorage.setItem('note_'+t.id, t.value); }catch(e){} });
+  });
+}
 function goHome(){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));
@@ -744,6 +822,7 @@ function refreshNow(){ loadFromSheet(); }
 (async function init(){
   DATA=null;
   setStatus('sample');
+  initNotes();
   goHome();
   await loadFromSheet();           // pull live data on open
   setInterval(loadFromSheet,60000); // auto refresh every 60s
