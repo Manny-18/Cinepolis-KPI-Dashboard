@@ -20,7 +20,7 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Montserrat',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-    background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;}
+    background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;font-size:13px;}
 
   header.topbar{background:linear-gradient(120deg,var(--navy) 0%,var(--navy-2) 55%,var(--navy-3) 100%);
     color:#fff;padding:26px 36px 30px;position:relative;overflow:hidden;}
@@ -34,8 +34,8 @@
   .dotlive.stale{background:var(--yellow);animation:none}
   .dotlive.err{background:var(--coral);animation:none}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(83,203,122,.5)}70%{box-shadow:0 0 0 7px rgba(83,203,122,0)}100%{box-shadow:0 0 0 0 rgba(83,203,122,0)}}
-  h1.maintitle{position:relative;z-index:1;margin-top:20px;font-size:32px;font-weight:800;letter-spacing:-.5px;cursor:pointer;}
-  .subtitle{position:relative;z-index:1;color:#c4d2ef;font-size:14px;margin-top:6px;font-weight:500}
+  h1.maintitle{position:relative;z-index:1;margin-top:16px;font-size:24px;font-weight:800;letter-spacing:-.5px;cursor:pointer;}
+  .subtitle{position:relative;z-index:1;color:#c4d2ef;font-size:12px;margin-top:5px;font-weight:500}
 
   nav.tabs{display:flex;gap:18px;padding:22px 36px 0;flex-wrap:wrap;margin-top:-26px;position:relative;z-index:2;}
   .tab{flex:1;min-width:230px;background:var(--card);border-radius:16px;padding:22px 24px;
@@ -46,8 +46,8 @@
   .tab[data-k="helpdesk"] .bar-top{background:linear-gradient(90deg,var(--blue),var(--navy-3))}
   .tab[data-k="ops"] .bar-top{background:linear-gradient(90deg,var(--teal),var(--green-ok))}
   .tab[data-k="rsit"] .bar-top{background:linear-gradient(90deg,var(--purple),var(--magenta))}
-  .tab .tt{font-weight:700;font-size:17px}
-  .tab .ts{font-size:12.5px;color:var(--muted);margin-top:5px;font-weight:500}
+  .tab .tt{font-weight:700;font-size:14px}
+  .tab .ts{font-size:11px;color:var(--muted);margin-top:4px;font-weight:500}
   .tab.active{border-color:var(--blue);box-shadow:0 14px 34px rgba(71,129,255,.22)}
   .tab[data-k="ops"].active{border-color:var(--teal);box-shadow:0 14px 34px rgba(53,203,204,.22)}
   .tab[data-k="rsit"].active{border-color:var(--purple);box-shadow:0 14px 34px rgba(130,52,207,.22)}
@@ -58,7 +58,7 @@
   @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
   .sectionhead{display:flex;align-items:center;gap:12px;margin:6px 0 18px;flex-wrap:wrap}
-  .sectionhead h2{font-size:20px;font-weight:800}
+  .sectionhead h2{font-size:16px;font-weight:800}
   .pill{font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:999px}
   .pill.good{background:#e3f7ea;color:#1f8f4d}
   .pill.warn{background:#fff3d6;color:#9a6b00}
@@ -73,9 +73,9 @@
   .kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}
   .kpi.c1::before{background:var(--blue)} .kpi.c2::before{background:var(--green-ok)}
   .kpi.c3::before{background:var(--yellow)} .kpi.c4::before{background:var(--purple)}
-  .kpi .lab{font-size:12.5px;color:var(--muted);font-weight:600}
-  .kpi .val{font-size:30px;font-weight:800;margin-top:6px;letter-spacing:-1px}
-  .kpi .sub{font-size:11.5px;color:var(--muted);margin-top:4px;font-weight:500}
+  .kpi .lab{font-size:11px;color:var(--muted);font-weight:600}
+  .kpi .val{font-size:23px;font-weight:800;margin-top:5px;letter-spacing:-.5px}
+  .kpi .sub{font-size:10.5px;color:var(--muted);margin-top:3px;font-weight:500}
 
   .grid{display:grid;gap:16px}
   .g2{grid-template-columns:1fr 1fr}
@@ -83,11 +83,11 @@
   .grid .cardc{display:flex;flex-direction:column}
   .grid .cardc .chartbox{flex:1}
   .cardc{background:var(--card);border-radius:16px;padding:18px 20px 20px;box-shadow:var(--shadow)}
-  .cardc h3{font-size:13px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--navy);margin-bottom:14px}
+  .cardc h3{font-size:11.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--navy);margin-bottom:12px}
   .chartbox{position:relative;height:300px}
   .chartbox.sm{height:300px}
 
-  table.up{width:100%;border-collapse:collapse;font-size:13px}
+  table.up{width:100%;border-collapse:collapse;font-size:11.5px}
   table.up th{text-align:left;color:var(--muted);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;padding:8px 6px;border-bottom:1px solid var(--line)}
   table.up td{padding:9px 6px;border-bottom:1px solid var(--line);font-weight:500}
   table.up td.r,table.up th.r{text-align:right}
@@ -147,7 +147,7 @@
     padding:11px 22px;font-weight:700;font-size:13.5px;cursor:pointer}
   .nd-btn:hover{background:var(--navy-3)}
   footer{padding:18px 36px;color:var(--muted);font-size:12px;text-align:center;font-weight:500}
-  @media(max-width:1050px){.g3,.g2{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}h1.maintitle{font-size:24px}}
+  @media(max-width:1050px){.g3,.g2{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}h1.maintitle{font-size:20px}}
 </style>
 </head>
 <body>
@@ -272,12 +272,37 @@
     <div class="kpi c3"><div class="lab">Total downtime</div><div class="val" id="rsDown">--</div><div class="sub">Sum across sites</div></div>
     <div class="kpi c4"><div class="lab">Worst site downtime</div><div class="val" id="rsWorst">--</div><div class="sub" id="rsWorstName">worst site</div></div>
   </div>
-  <div class="cardc">
-    <h3>Cinema IT uptime detail</h3>
+  <div class="grid g2">
+    <div class="cardc"><h3>Cinema IT uptime detail</h3>
+      <div class="scrollbox">
+        <table class="up">
+          <thead><tr><th>Location</th><th class="r">Downtime (h)</th><th class="r">Uptime</th><th style="width:30%">Availability</th></tr></thead>
+          <tbody id="rsTable"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="cardc"><h3>Regional supervisor &middot; ticket &amp; SLA</h3>
+      <div class="scrollbox">
+        <table class="up">
+          <thead><tr><th>Regional supervisor</th><th class="r">Total tickets</th><th class="r">SLA %</th></tr></thead>
+          <tbody id="rsSupTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="cardc" style="margin-top:16px"><h3>Regional supervisor &middot; refunds</h3>
     <div class="scrollbox">
       <table class="up">
-        <thead><tr><th>Location</th><th class="r">Downtime (h)</th><th class="r">Uptime</th><th style="width:34%">Availability</th></tr></thead>
-        <tbody id="rsTable"></tbody>
+        <thead><tr><th>Regional supervisor</th><th class="r">Region</th><th class="r">Refund %</th><th class="r">Tickets refunded</th><th class="r">Total admits</th></tr></thead>
+        <tbody id="rsRefundTable"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="cardc" style="margin-top:16px"><h3>Cinema refunds &middot; by reason</h3>
+    <div class="scrollbox">
+      <table class="up">
+        <thead><tr><th>Cinema</th><th class="r">Refund %</th><th class="r">No. of tickets</th><th>Reason</th></tr></thead>
+        <tbody id="rsCinemaRefundTable"></tbody>
       </table>
     </div>
   </div>
@@ -416,7 +441,10 @@ const GIDS = {
   opsMonthly:      "1931427096",
   uptime:          "1779011437",
   rsitAgents:      "RSIT_AGENTS_GID",   // <-- add an "RSIT Agents" tab and paste its gid here
-  opsAgents:       "OPS_AGENTS_GID"     // <-- add an "Ops Agents" tab and paste its gid here
+  opsAgents:       "OPS_AGENTS_GID",    // <-- add an "Ops Agents" tab and paste its gid here
+  rsSupervisor:    "RS_SUPERVISOR_GID", // <-- "RS Supervisor" tab: Supervisor, Total Ticket, SLA %
+  rsRefunds:       "RS_REFUNDS_GID",    // <-- "RS Refunds" tab: Supervisor, Region, Refund %, Tickets Refunded, Total Admits
+  cinemaRefunds:   "CINEMA_REFUNDS_GID" // <-- "Cinema Refunds" tab: Cinema, Refund %, No. of Tickets, Reason
 };
 let DATA_SOURCE='sample';
 
@@ -474,6 +502,15 @@ function mapRows(D, key, rows){
   } else if(key==='rsitAgents'){
     const b=rows.slice(1).filter(x=>x[0]&&(x[1]||numv(x[2])!=null));
     if(b.length) D.rsitAgents={region:b.map(x=>String(x[0]).trim()),agent:b.map(x=>String(x[1]||'').trim()),count:b.map(x=>numv(x[2])),sla:b.map(x=>numv(x[3]))};
+  } else if(key==='rsSupervisor'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null);
+    if(b.length) D.rsSupervisor=b.map(x=>[String(x[0]).trim(),numv(x[1]),numv(x[2])]);
+  } else if(key==='rsRefunds'){
+    const b=rows.slice(1).filter(x=>x[0]&&!/^total$/i.test(String(x[0]).trim()));
+    if(b.length) D.rsRefunds=b.map(x=>[String(x[0]).trim(),numv(x[1]),numv(x[2]),numv(x[3]),numv(x[4])]);
+  } else if(key==='cinemaRefunds'){
+    const b=rows.slice(1).filter(x=>x[0]&&!/grand total/i.test(String(x[0]).trim()));
+    if(b.length) D.cinemaRefunds=b.map(x=>[String(x[0]).trim(),numv(x[1]),numv(x[2]),String(x[3]||'').trim()]);
   } else if(key==='uptime'){
     const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.uptime=b.map(x=>[String(x[0]).trim(),numv(x[1]),numv(x[2])]);
   }
@@ -532,7 +569,7 @@ function applyData(D, stayHome){
 /* ---------- core globals (palette, chart registry, current data) ---------- */
 const C={navy:'#0B285B',blue:'#4781FF',teal:'#35CBCC',green:'#53cb7a',yellow:'#FFBE06',coral:'#F66E4E',purple:'#8234CF',magenta:'#BD3168',muted:'#6b7689',line:'#e3e8f0'};
 Chart.defaults.font.family="'Montserrat',system-ui,sans-serif";
-Chart.defaults.font.size=12;Chart.defaults.font.weight=500;Chart.defaults.color=C.muted;
+Chart.defaults.font.size=10.5;Chart.defaults.font.weight=500;Chart.defaults.color=C.muted;
 try{Chart.unregister(ChartDataLabels);}catch(e){}
 let charts={};
 let DATA=JSON.parse(JSON.stringify(SAMPLE));
@@ -727,6 +764,9 @@ function renderRsit(){
 
   // RSIT agent table (Region, Agent, Ticket count, SLA %)
   renderRsitAgents();
+  renderRsSupervisor();
+  renderRsRefunds();
+  renderCinemaRefunds();
   // RSIT category + aging charts (uses RSIT-specific data if present, else helpdesk data)
   buildCats('rsCats', DATA.rsitCategory||DATA.category);
   buildAging('rsAging', DATA.rsitAging||DATA.aging);
@@ -749,6 +789,44 @@ function renderRsitAgents(){
       '<td>'+(ag.agent[i]||'-')+'</td>'+
       '<td class="r upval">'+(ag.count[i]!=null?ag.count[i]:'-')+'</td>'+
       '<td class="r">'+badge+'</td></tr>');
+  });
+}
+
+function fmtNum(n){ return n==null?'-':n.toLocaleString('en-IN'); }
+function fmtPct(n){ return n==null?'-':(Math.round(n*100)/100)+'%'; }
+
+function renderRsSupervisor(){
+  const tb=document.getElementById('rsSupTable'); if(!tb) return;
+  const d=DATA.rsSupervisor; tb.innerHTML='';
+  if(!d){ tb.insertAdjacentHTML('beforeend','<tr><td colspan="3" style="color:var(--muted)">Add an "RS Supervisor" tab (Supervisor, Total Ticket, SLA %) to populate this.</td></tr>'); return; }
+  d.forEach(r=>{
+    const sla=r[2];
+    const badge = sla==null?'-':'<span class="slabadge" style="background:'+slaColor(sla)+'">'+(Math.round(sla*100)/100)+'%</span>';
+    tb.insertAdjacentHTML('beforeend','<tr><td>'+r[0]+'</td><td class="r upval">'+fmtNum(r[1])+'</td><td class="r">'+badge+'</td></tr>');
+  });
+}
+
+function renderRsRefunds(){
+  const tb=document.getElementById('rsRefundTable'); if(!tb) return;
+  const d=DATA.rsRefunds; tb.innerHTML='';
+  if(!d){ tb.insertAdjacentHTML('beforeend','<tr><td colspan="5" style="color:var(--muted)">Add an "RS Refunds" tab (Supervisor, Region, Refund %, Tickets Refunded, Total Admits) to populate this.</td></tr>'); return; }
+  // color refund% : higher is worse (red), lower is better (green) -- relative to max
+  const max=Math.max.apply(null,d.map(r=>r[2]||0).concat([0.0001]));
+  d.forEach(r=>{
+    const rp=r[2];
+    let col='#cfd8e6';
+    if(rp!=null){ const t=rp/max; col = t>0.66?C.coral : t>0.33?C.yellow : C.green; }
+    const badge = rp==null?'-':'<span class="slabadge" style="background:'+col+'">'+(Math.round(rp*100)/100)+'%</span>';
+    tb.insertAdjacentHTML('beforeend','<tr><td>'+r[0]+'</td><td class="r">'+fmtNum(r[1])+'</td><td class="r">'+badge+'</td><td class="r upval">'+fmtNum(r[3])+'</td><td class="r">'+fmtNum(r[4])+'</td></tr>');
+  });
+}
+
+function renderCinemaRefunds(){
+  const tb=document.getElementById('rsCinemaRefundTable'); if(!tb) return;
+  const d=DATA.cinemaRefunds; tb.innerHTML='';
+  if(!d){ tb.insertAdjacentHTML('beforeend','<tr><td colspan="4" style="color:var(--muted)">Add a "Cinema Refunds" tab (Cinema, Refund %, No. of Tickets, Reason) to populate this.</td></tr>'); return; }
+  d.forEach(r=>{
+    tb.insertAdjacentHTML('beforeend','<tr><td>'+r[0]+'</td><td class="r upval">'+fmtPct(r[1])+'</td><td class="r">'+fmtNum(r[2])+'</td><td>'+(r[3]||'-')+'</td></tr>');
   });
 }
 function renderAll(){renderHelpdesk();renderOps();renderRsit();fillSharedKpis();}
