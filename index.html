@@ -442,9 +442,9 @@ const GIDS = {
   uptime:          "1779011437",
   rsitAgents:      "RSIT_AGENTS_GID",   // <-- add an "RSIT Agents" tab and paste its gid here
   opsAgents:       "OPS_AGENTS_GID",    // <-- add an "Ops Agents" tab and paste its gid here
-  rsSupervisor:    "RS_SUPERVISOR_GID", // <-- "RS Supervisor" tab: Supervisor, Total Ticket, SLA %
-  rsRefunds:       "RS_REFUNDS_GID",    // <-- "RS Refunds" tab: Supervisor, Region, Refund %, Tickets Refunded, Total Admits
-  cinemaRefunds:   "CINEMA_REFUNDS_GID" // <-- "Cinema Refunds" tab: Cinema, Refund %, No. of Tickets, Reason
+  rsSupervisor:    "1443186942",        // SLA tab: Region, Regional Supervisor, Total Ticket, SLA
+  rsRefunds:       "1108707621",        // Refund Summary: Region, Regional Supervisor, Refund %, Tickets Refunded, Total Admits
+  cinemaRefunds:   "1896685941"         // Refund Reasons: Cinema, Refund %, No. of Tickets, Reason
 };
 let DATA_SOURCE='sample';
 
@@ -503,12 +503,15 @@ function mapRows(D, key, rows){
     const b=rows.slice(1).filter(x=>x[0]&&(x[1]||numv(x[2])!=null));
     if(b.length) D.rsitAgents={region:b.map(x=>String(x[0]).trim()),agent:b.map(x=>String(x[1]||'').trim()),count:b.map(x=>numv(x[2])),sla:b.map(x=>numv(x[3]))};
   } else if(key==='rsSupervisor'){
-    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null);
-    if(b.length) D.rsSupervisor=b.map(x=>[String(x[0]).trim(),numv(x[1]),numv(x[2])]);
+    // SLA tab: Region | Regional Supervisor | Total Ticket | SLA
+    const b=rows.slice(1).filter(x=>x[1]&&numv(x[2])!=null);
+    if(b.length) D.rsSupervisor=b.map(x=>[String(x[1]).trim(),numv(x[2]),numv(x[3])]);
   } else if(key==='rsRefunds'){
-    const b=rows.slice(1).filter(x=>x[0]&&!/^total$/i.test(String(x[0]).trim()));
-    if(b.length) D.rsRefunds=b.map(x=>[String(x[0]).trim(),numv(x[1]),numv(x[2]),numv(x[3]),numv(x[4])]);
+    // Refund Summary: Region | Regional Supervisor | Refund % | Tickets Refunded | Total Admits
+    const b=rows.slice(1).filter(x=>x[1]&&!/^total$/i.test(String(x[1]).trim()));
+    if(b.length) D.rsRefunds=b.map(x=>[String(x[1]).trim(),numv(x[0]),numv(x[2]),numv(x[3]),numv(x[4])]);
   } else if(key==='cinemaRefunds'){
+    // Refund Reasons: Cinema | Refund % | No. of Tickets | Reason
     const b=rows.slice(1).filter(x=>x[0]&&!/grand total/i.test(String(x[0]).trim()));
     if(b.length) D.cinemaRefunds=b.map(x=>[String(x[0]).trim(),numv(x[1]),numv(x[2]),String(x[3]||'').trim()]);
   } else if(key==='uptime'){
