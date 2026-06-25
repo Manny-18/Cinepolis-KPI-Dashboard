@@ -617,16 +617,23 @@ function buildMonthlyChart(canvasId){
   const cur=(m.currentSla!=null?m.currentSla:99.5);
   const tgt=(m.target!=null?m.target:97.5);
   const line=v=>m.labels.map(()=>v);
+  // sensible SLA axis bounds from the actual values (so points sit on the line, not pinned at the top)
+  const slaVals=m.sla.filter(v=>v!=null).concat([cur,tgt]);
+  let lo=Math.min.apply(null,slaVals), hi=Math.max.apply(null,slaVals);
+  lo=Math.floor((lo-0.5)*2)/2; hi=Math.ceil((hi+0.5)*2)/2;
+  if(hi-lo<2){ hi=lo+2; }
   upsert(canvasId,{data:{labels:m.labels,datasets:[
-    {type:'bar',label:'Total tickets',data:m.total,backgroundColor:C.blue,borderRadius:5,yAxisID:'y',maxBarThickness:26,order:3},
-    {type:'bar',label:'Closed tickets',data:m.closed,backgroundColor:C.green,borderRadius:5,yAxisID:'y',maxBarThickness:26,order:3},
-    {type:'line',label:'Monthly SLA %',data:m.sla,borderColor:C.navy,backgroundColor:C.navy,tension:.35,yAxisID:'y1',pointRadius:6,pointHoverRadius:7,borderWidth:2.5,order:1,
-      pointBackgroundColor:m.sla.map(slaColor),pointBorderColor:m.sla.map(slaColor)},
-    {type:'line',label:'Current YTD SLA ('+cur+'%)',data:line(cur),borderColor:C.teal,borderDash:[6,4],pointRadius:0,borderWidth:2.5,yAxisID:'y1',order:0},
-    {type:'line',label:'Target ('+tgt+'%)',data:line(tgt),borderColor:C.coral,borderDash:[3,3],pointRadius:0,borderWidth:2.5,yAxisID:'y1',order:0}
+    {type:'bar',label:'Total tickets',data:m.total,backgroundColor:C.blue,borderRadius:5,yAxisID:'y',maxBarThickness:34,order:3},
+    {type:'bar',label:'Closed tickets',data:m.closed,backgroundColor:C.teal,borderRadius:5,yAxisID:'y',maxBarThickness:34,order:3},
+    {type:'line',label:'Monthly SLA %',data:m.sla,borderColor:C.navy,backgroundColor:C.navy,tension:.3,yAxisID:'y1',pointRadius:5,pointHoverRadius:7,borderWidth:2.5,order:1,
+      pointBackgroundColor:C.navy,pointBorderColor:'#fff',pointBorderWidth:1.5,spanGaps:true},
+    {type:'line',label:'Current YTD SLA ('+cur+'%)',data:line(cur),borderColor:C.green,borderDash:[6,4],pointRadius:0,borderWidth:2,yAxisID:'y1',order:0},
+    {type:'line',label:'Target ('+tgt+'%)',data:line(tgt),borderColor:C.coral,borderDash:[3,3],pointRadius:0,borderWidth:2,yAxisID:'y1',order:0}
   ]},options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-    plugins:{legend:{position:'top',labels:{usePointStyle:true,boxWidth:8}}},
-    scales:{y:{beginAtZero:true,grid:{color:C.line}},y1:{position:'right',min:95,max:101,grid:{drawOnChartArea:false},ticks:{callback:v=>v+'%'}}}}});
+    plugins:{legend:{position:'top',labels:{usePointStyle:true,boxWidth:8}},
+      tooltip:{callbacks:{label:c=>{ const v=c.parsed.y; return c.dataset.label+': '+(c.dataset.yAxisID==='y1'? (Math.round(v*100)/100)+'%' : v); }}}},
+    scales:{y:{beginAtZero:true,grid:{color:C.line},title:{display:true,text:'Tickets'}},
+      y1:{position:'right',min:lo,max:hi,grid:{drawOnChartArea:false},ticks:{callback:v=>v+'%'},title:{display:true,text:'SLA %'}}}}});
 }
 function fillSharedKpis(){
   if(!DATA){ setAll('kTotal','--');setAll('kClosed','--');setAll('kPending','--');setAll('kSla','--');setAll('kWindow','reporting window');setAll('kClosedRate','closure rate'); return; }
