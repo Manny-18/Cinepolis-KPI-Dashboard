@@ -432,7 +432,7 @@ const GIDS = {
   opsMonthly:      "1931427096",
   uptime:          "1779011437",
   rsitAgents:      "RSIT_AGENTS_GID",   // <-- add an "RSIT Agents" tab and paste its gid here
-  opsAgents:       "OPS_AGENTS_GID",    // <-- add an "Ops Agents" tab and paste its gid here
+  opsAgents:       "1652361449",        // Ops Agents: Name, Ticket Count, SLA %
   rsSupervisor:    "1443186942",        // SLA tab: Region, Regional Supervisor, Total Ticket, SLA
   rsRefunds:       "1108707621",        // Refund Summary: Region, Regional Supervisor, Refund %, Tickets Refunded, Total Admits
   cinemaRefunds:   "1896685941"         // Refund Reasons: Cinema, Refund %, No. of Tickets, Reason
@@ -603,8 +603,10 @@ function setAll(cls,val){document.querySelectorAll('.'+cls).forEach(e=>e.textCon
 function setTxt(id,val){const e=document.getElementById(id); if(e) e.textContent=val;}
 function upColor(v){ if(v==null) return C.muted; if(v>=99.8) return C.green; if(v>=99) return C.yellow; return C.coral; }
 function slaColor(v){ if(v==null) return C.muted; if(v>=97.5) return C.green; if(v>=95) return C.yellow; return C.coral; }
-function buildMonthlyChart(canvasId){
-  const m=DATA.hdMonthly;
+function buildMonthlyChart(canvasId, src, totalLabel, closedLabel){
+  const m=src||DATA.hdMonthly;
+  const tLab=totalLabel||'Total tickets';
+  const cLab=closedLabel||'Closed tickets';
   const cur=(m.currentSla!=null?m.currentSla:99.5);
   const tgt=(m.target!=null?m.target:97.5);
   const line=v=>m.labels.map(()=>v);
@@ -614,8 +616,8 @@ function buildMonthlyChart(canvasId){
   lo=Math.floor((lo-0.5)*2)/2; hi=Math.ceil((hi+0.5)*2)/2;
   if(hi-lo<2){ hi=lo+2; }
   upsert(canvasId,{data:{labels:m.labels,datasets:[
-    {type:'bar',label:'Total tickets',data:m.total,backgroundColor:C.blue,borderRadius:5,yAxisID:'y',maxBarThickness:34,order:3},
-    {type:'bar',label:'Closed tickets',data:m.closed,backgroundColor:C.teal,borderRadius:5,yAxisID:'y',maxBarThickness:34,order:3},
+    {type:'bar',label:tLab,data:m.total,backgroundColor:C.blue,borderRadius:5,yAxisID:'y',maxBarThickness:34,order:3},
+    {type:'bar',label:cLab,data:m.closed,backgroundColor:C.teal,borderRadius:5,yAxisID:'y',maxBarThickness:34,order:3},
     {type:'line',label:'Monthly SLA %',data:m.sla,borderColor:C.navy,backgroundColor:C.navy,tension:.3,yAxisID:'y1',pointRadius:5,pointHoverRadius:7,borderWidth:2.5,order:1,
       pointBackgroundColor:C.navy,pointBorderColor:'#fff',pointBorderWidth:1.5,spanGaps:true},
     {type:'line',label:'Current YTD SLA ('+cur+'%)',data:line(cur),borderColor:C.green,borderDash:[6,4],pointRadius:0,borderWidth:2,yAxisID:'y1',order:0},
@@ -722,7 +724,9 @@ function renderOps(){
   const avgSla=ytdSla.length?ytdSla.reduce((a,b)=>a+b,0)/ytdSla.length:null;
   const pill=document.getElementById('opPill');
   if(avgSla>=97.5){pill.className='pill good';pill.textContent='SLA Healthy '+pct(avgSla);}else{pill.className='pill warn';pill.textContent='SLA Below Target '+pct(avgSla);}
-  buildMonthlyChart('opMonthlyShared');
+  // give the Ops monthly chart its own YTD SLA + target reference lines
+  const opsM=Object.assign({}, m, {currentSla: avgSla!=null?Math.round(avgSla*100)/100:97.5, target:97.5});
+  buildMonthlyChart('opMonthlyShared', opsM, 'Total tasks', 'Closed tasks');
   buildWeekly('opWeekly','opPeak', DATA.opsTrends||DATA.trends);
   buildAgents('opAgents', DATA.opsAgents||OPS_AGENTS_FALLBACK);
   buildCats('opCats', DATA.opsCategory||DATA.category);
