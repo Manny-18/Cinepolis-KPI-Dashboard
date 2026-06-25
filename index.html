@@ -306,15 +306,6 @@
       </table>
     </div>
   </div>
-  <div class="cardc" style="margin-top:16px">
-    <h3>RSIT agent performance</h3>
-    <div class="scrollbox">
-      <table class="up">
-        <thead><tr><th>Region</th><th>Agent</th><th class="r">Ticket count</th><th class="r">SLA %</th></tr></thead>
-        <tbody id="rsAgentTable"></tbody>
-      </table>
-    </div>
-  </div>
   <div class="grid g2" style="margin-top:16px">
     <div class="cardc"><h3>Ticket categories</h3><div class="chartbox"><canvas id="rsCats"></canvas></div></div>
     <div class="cardc"><h3>Open ticket aging (days)</h3><div class="chartbox"><canvas id="rsAging"></canvas></div></div>
@@ -772,8 +763,6 @@ function renderRsit(){
       '<td><div class="bar"><i style="width:'+w+'%;background:'+col+'"></i></div></td></tr>');
   });
 
-  // RSIT agent table (Region, Agent, Ticket count, SLA %)
-  renderRsitAgents();
   renderRsSupervisor();
   renderRsRefunds();
   renderCinemaRefunds();
@@ -782,25 +771,6 @@ function renderRsit(){
   buildAging('rsAging', DATA.rsitAging||DATA.aging);
 }
 
-function renderRsitAgents(){
-  const tb=document.getElementById('rsAgentTable'); if(!tb) return;
-  const ag=DATA.rsitAgents;
-  tb.innerHTML='';
-  if(!ag||!ag.region){
-    tb.insertAdjacentHTML('beforeend','<tr><td colspan="4" style="color:var(--muted)">Add an "RSIT Agents" sheet with columns Region, Agent, Ticket Count, SLA % to populate this.</td></tr>');
-    return;
-  }
-  ag.region.forEach((reg,i)=>{
-    const sla=ag.sla&&ag.sla[i]!=null?ag.sla[i]:null;
-    const badge = sla==null ? '<span class="slabadge" style="background:#cfd8e6;color:#56607a">n/a</span>'
-      : '<span class="slabadge" style="background:'+slaColor(sla)+'">'+(Math.round(sla*10)/10)+'%</span>';
-    tb.insertAdjacentHTML('beforeend',
-      '<tr><td><span class="regtag">'+(reg||'-')+'</span></td>'+
-      '<td>'+(ag.agent[i]||'-')+'</td>'+
-      '<td class="r upval">'+(ag.count[i]!=null?ag.count[i]:'-')+'</td>'+
-      '<td class="r">'+badge+'</td></tr>');
-  });
-}
 
 function fmtNum(n){ return n==null?'-':n.toLocaleString('en-IN'); }
 function fmtPct(n){ return n==null?'-':(Math.round(n*100)/100)+'%'; }
