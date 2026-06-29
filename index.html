@@ -427,17 +427,16 @@ const SHEET_ID = "1bNGShwc6xNBp1trK5bKukWj0Qgnk2fMRRvXIvo0BDqg";
 const GIDS = {
   helpdeskMonthly: "0",
   helpdeskBoard:   "1397472412",        // IT Helpdesk Dashboard
-  trends:          "688791424",
+  trends:          "0",
   category:        "1192289919",        // IT Helpdesk Category
   aging:           "1460575695",        // IT Helpdesk Aging
-  agents:          "747325767",
+  agents:          "0",
   opsMonthly:      "1498898314",        // IT Ops Dashboard
-  uptime:          "1779011437",
-  rsitAgents:      "1357612863",        // RSIT Dashboard
-  opsAgents:       "52292667",          // IT Ops Category
-  rsSupervisor:    "992914629",         // IT Ops Aging
-  rsRefunds:       "166158665",         // RSIT Aging
-  cinemaRefunds:   "1371768702"         // RSIT Category
+  opsAging:        "992914629",         // IT Ops Aging
+  opsCategory:     "52292667",          // IT Ops Category
+  uptime:          "1357612863",        // RSIT Dashboard
+  rsitAging:       "166158665",         // RSIT Aging
+  rsitCategory:    "1371768702"         // RSIT Category
 };
 let DATA_SOURCE='sample';
 
@@ -471,44 +470,94 @@ async function fetchTab(gid){
 
 function mapRows(D, key, rows){
   if(!rows) return;
-  if(key==='helpdeskMonthly'){
-    const body=rows.slice(1).filter(x=>x[0]&&numv(x[1])!==null);
+  
+  // HELPDESK DASHBOARD - Single row with: Total Tickets | Closed Tickets | Open/Pending | SLA %
+  if(key==='helpdeskBoard'){
+    const row = rows.slice(1).find(x => x[0] && (numv(x[0]) !== null || String(x[0]).toLowerCase().includes('total')));
+    if(row) D.hdBoard={total:numv(row[0]),closed:numv(row[1]),pending:numv(row[2]),sla:numv(row[3])};
+  } 
+  // OPS DASHBOARD - Single row with: Total Tickets | Closed Tickets | Open/Pending | SLA %
+  else if(key==='opsMonthly'){
+    const row = rows.slice(1).find(x => x[0] && (numv(x[0]) !== null || String(x[0]).toLowerCase().includes('total')));
+    if(row) D.opsMonthly={labels:[],total:[numv(row[0])],closed:[numv(row[1])],pending:[numv(row[2])],sla:[numv(row[3])],currentSla:numv(row[3]),target:97.5};
+  }
+  // RSIT DASHBOARD - Single row with: Total Tickets | Closed Tickets | Open/Pending | SLA %
+  else if(key==='uptime'){
+    const row = rows.slice(1).find(x => x[0] && (numv(x[0]) !== null || String(x[0]).toLowerCase().includes('total')));
+    if(row) D.uptime=[[String(row[0]).trim(),numv(row[1]),numv(row[2]),numv(row[3])]];
+  }
+  // HELPDESK MONTHLY GRAPH - Time series: Month | Total Tickets | Closed Tickets | SLA %
+  else if(key==='helpdeskMonthly'){
+    const body=rows.slice(1).filter(x=>x[0]&&numv(x[1])!==null&&!String(x[0]).toLowerCase().includes('current')&&!String(x[0]).toLowerCase().includes('target'));
     let cur=null,tgt=null;
     rows.forEach(row=>{ const lab=row.map(c=>String(c||'').toLowerCase()).join(' '); const fn=row.map(numv).find(n=>n!==null);
       if(lab.includes('current')&&lab.includes('sla')&&fn!=null) cur=fn; else if(lab.includes('target')&&fn!=null) tgt=fn; });
     if(body.length) D.hdMonthly={labels:body.map(x=>String(x[0])),total:body.map(x=>numv(x[1])),closed:body.map(x=>numv(x[2])),sla:body.map(x=>numv(x[3])),currentSla:cur!=null?cur:99.5,target:tgt!=null?tgt:97.5};
-  } else if(key==='helpdeskBoard'){
-    let v=null; for(const row of rows){ if(numv(row[0])!=null){v=row;break;} } if(v) D.hdBoard={total:numv(v[0]),closed:numv(v[1]),pending:numv(v[2]),sla:numv(v[3])};
-  } else if(key==='trends'){
-    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null).slice(0,7); if(b.length) D.trends={labels:b.map(x=>String(x[0]).trim()),total:b.map(x=>numv(x[1])),closed:b.map(x=>numv(x[2]))};
-  } else if(key==='category'){
-    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.category={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1]))};
-  } else if(key==='aging'){
-    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.aging={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1]))};
-  } else if(key==='agents'){
-    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.agents={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1])),sla:b.map(x=>numv(x[2]))};
-  } else if(key==='opsMonthly'){
-    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.opsMonthly={labels:b.map(x=>String(x[0])),total:b.map(x=>numv(x[1])),closed:b.map(x=>numv(x[2])),sla:b.map(x=>numv(x[3]))};
-  } else if(key==='opsAgents'){
+  }
+  // TICKET TRENDS - Daily data: Day | Total | Closed
+  else if(key==='trends'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null).slice(0,7); 
+    if(b.length) D.trends={labels:b.map(x=>String(x[0]).trim()),total:b.map(x=>numv(x[1])),closed:b.map(x=>numv(x[2]))};
+  }
+  // CATEGORY - Category | Count
+  else if(key==='category'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); 
+    if(b.length) D.category={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1]))};
+  }
+  // AGING - Bucket | Count
+  else if(key==='aging'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); 
+    if(b.length) D.aging={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1]))};
+  }
+  // AGENTS - Name | Ticket Count | SLA %
+  else if(key==='agents'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); 
+    if(b.length) D.agents={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1])),sla:b.map(x=>numv(x[2]))};
+  }
+  // OPS CATEGORY
+  else if(key==='opsCategory'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); 
+    if(b.length) D.opsCategory={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1]))};
+  }
+  // OPS AGING
+  else if(key==='opsAging'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); 
+    if(b.length) D.opsAging={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1]))};
+  }
+  // OPS AGENTS - Name | Ticket Count | SLA %
+  else if(key==='opsAgents'){
     const b=rows.slice(1).filter(x=>x[0]&&(numv(x[1])!=null||x[1]==null));
     if(b.length) D.opsAgents={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1])),sla:b.map(x=>numv(x[2]))};
-  } else if(key==='rsitAgents'){
+  }
+  // RSIT CATEGORY
+  else if(key==='rsitCategory'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); 
+    if(b.length) D.rsitCategory={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1]))};
+  }
+  // RSIT AGING
+  else if(key==='rsitAging'){
+    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); 
+    if(b.length) D.rsitAging={labels:b.map(x=>String(x[0]).trim()),data:b.map(x=>numv(x[1]))};
+  }
+  // RSIT AGENTS - Region | Regional Supervisor | No. of Tickets | SLA %
+  else if(key==='rsitAgents'){
     const b=rows.slice(1).filter(x=>x[0]&&(x[1]||numv(x[2])!=null));
     if(b.length) D.rsitAgents={region:b.map(x=>String(x[0]).trim()),agent:b.map(x=>String(x[1]||'').trim()),count:b.map(x=>numv(x[2])),sla:b.map(x=>numv(x[3]))};
-  } else if(key==='rsSupervisor'){
-    // SLA tab: Region | Regional Supervisor | Total Ticket | SLA
+  }
+  // REFUND SUMMARY - Region | Regional Supervisor | Refund % | Tickets Refunded | Total Admits
+  else if(key==='rsSupervisor'){
     const b=rows.slice(1).filter(x=>x[1]&&numv(x[2])!=null);
     if(b.length) D.rsSupervisor=b.map(x=>[String(x[1]).trim(),numv(x[2]),numv(x[3])]);
-  } else if(key==='rsRefunds'){
-    // Refund Summary: Region | Regional Supervisor | Refund % | Tickets Refunded | Total Admits
+  }
+  // REFUND SUMMARY YTD
+  else if(key==='rsRefunds'){
     const b=rows.slice(1).filter(x=>x[1]&&!/^total$/i.test(String(x[1]).trim()));
     if(b.length) D.rsRefunds=b.map(x=>[String(x[1]).trim(),numv(x[0]),numv(x[2]),numv(x[3]),numv(x[4])]);
-  } else if(key==='cinemaRefunds'){
-    // Refund Reasons: Cinema | Refund % | No. of Tickets | Reason
+  }
+  // REFUND REASONS
+  else if(key==='cinemaRefunds'){
     const b=rows.slice(1).filter(x=>x[0]&&!/grand total/i.test(String(x[0]).trim()));
     if(b.length) D.cinemaRefunds=b.map(x=>[String(x[0]).trim(),numv(x[1]),numv(x[2]),String(x[3]||'').trim()]);
-  } else if(key==='uptime'){
-    const b=rows.slice(1).filter(x=>x[0]&&numv(x[1])!=null); if(b.length) D.uptime=b.map(x=>[String(x[0]).trim(),numv(x[1]),numv(x[2])]);
   }
 }
 
@@ -736,38 +785,45 @@ function renderOps(){
 }
 
 function renderRsit(){
-  const all=DATA.uptime.slice();
-  const totalDown=all.reduce((a,b)=>a+(b[1]||0),0);
-  const avgUp=all.length?all.reduce((a,b)=>a+(b[2]||0),0)/all.length:0;
-  // status counts
-  let g=0,a=0,r=0; all.forEach(x=>{const v=x[2]; if(v>=99.8)g++; else if(v>=99)a++; else r++;});
-  // worst site
-  const worst=all.slice().sort((x,y)=>y[1]-x[1])[0];
+  const all=DATA.uptime && Array.isArray(DATA.uptime) ? DATA.uptime.slice() : [];
+  
+  // Handle both array format and simple [name, value] format
+  const avgUp = all.length ? all.reduce((a,b)=>a+(Array.isArray(b) ? (b[2]||b[1]||0) : 0),0)/all.length : 0;
+  const totalDown = all.reduce((a,b)=>a+(Array.isArray(b) ? (b[1]||0) : 0),0);
+  
+  let g=0,a=0,r=0; 
+  all.forEach(x=>{
+    const v = Array.isArray(x) ? (x[2]||x[1]||0) : x;
+    if(v>=99.8)g++; else if(v>=99)a++; else r++;
+  });
+  
+  const worst=all.length ? all.slice().sort((x,y)=>(Array.isArray(y)?y[1]:y)-(Array.isArray(x)?x[1]:x))[0] : ['-',0,0];
 
   setTxt('rsCount',all.length);
   setTxt('rsAvg',pct(avgUp));
   setTxt('rsDown',(Math.round(totalDown*10)/10)+'h');
-  setTxt('rsWorst',(Math.round(worst[1]*10)/10)+'h');
-  setTxt('rsWorstName',worst[0]+' '+pct(worst[2]));
-  setTxt('rsPill','Fleet uptime '+pct(avgUp)+' avg');
+  setTxt('rsWorst',(Math.round((Array.isArray(worst)?worst[1]:worst)*10)/10)+'h');
+  setTxt('rsWorstName',(Array.isArray(worst)?worst[0]:worst)+' '+pct(Array.isArray(worst)?worst[2]:worst));
+  setTxt('rsPill','RSIT '+pct(avgUp)+' avg');
   const sc=document.getElementById('rsStatusCounts');
   if(sc){sc.innerHTML=
     '<span class="scnt"><i style="background:'+C.green+'"></i>'+g+' at 99.8%+</span>'+
     '<span class="scnt"><i style="background:'+C.yellow+'"></i>'+a+' at 99 to 99.8%</span>'+
     '<span class="scnt"><i style="background:'+C.coral+'"></i>'+r+' below 99%</span>';}
 
-
-  // table: ALL sites, worst uptime first
-  const sorted=all.slice().sort((x,y)=>x[2]-y[2]);
-  const tb=document.getElementById('rsTable');tb.innerHTML='';
+  // table: ALL items, worst first
+  const sorted=all.slice().sort((x,y)=>(Array.isArray(y)?y[2]:y)-(Array.isArray(x)?x[2]:x));
+  const tb=document.getElementById('rsTable');
+  if(tb){tb.innerHTML='';
   sorted.forEach(row=>{
-    const col=upColor(row[2]);
-    const w=Math.max(2,Math.min(100,((row[2]-96)/4*100))).toFixed(0);
+    const val = Array.isArray(row) ? row[2] : row;
+    const col=upColor(val);
+    const w=Math.max(2,Math.min(100,((val-96)/4*100))).toFixed(0);
     tb.insertAdjacentHTML('beforeend',
-      '<tr><td>'+row[0]+'</td><td class="r">'+row[1].toFixed(2)+'</td>'+
-      '<td class="r upval">'+row[2].toFixed(2)+'%</td>'+
+      '<tr><td>'+(Array.isArray(row)?row[0]:'Item')+'</td><td class="r">'+(Array.isArray(row)?row[1]:'-')+'</td>'+
+      '<td class="r upval">'+val.toFixed(2)+'%</td>'+
       '<td><div class="bar"><i style="width:'+w+'%;background:'+col+'"></i></div></td></tr>');
-  });
+  });}
 
   renderRsSupervisor();
   renderRsRefunds();
