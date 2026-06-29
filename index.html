@@ -187,12 +187,19 @@
 <main>
 
 <div class="setup" id="setupBanner">
-  <b>Live from Google Sheets.</b> This dashboard reads your published sheet and refreshes automatically every 60 seconds. Edit any cell in the sheet and the changes appear here shortly.
-  <button onclick="loadFromSheet()" style="margin-left:10px;display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-weight:600;font-size:12.5px;cursor:pointer;font-family:inherit">
-    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>
-    Refresh now
-  </button>
-  <div id="diagOut" style="margin-top:10px;font-size:12.5px;line-height:1.6"></div>
+  <b>📊 Google Sheets Configuration</b><br>
+  This dashboard pulls data from Google Sheets using specific sheet IDs (GIDs).<br>
+  <b>Step 1:</b> Copy your Google Sheet ID from the URL: <code style="background:#fff;border:1px solid #ffe2a8;padding:2px 6px;border-radius:3px">https://docs.google.com/spreadsheets/d/<b>COPY_THIS_ID</b>/edit</code><br>
+  <b>Step 2:</b> Paste it below:
+  <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center">
+    <input type="text" id="sheetIdInput" placeholder="Paste your Google Sheet ID here" style="flex:1;min-width:250px;padding:8px 12px;border:1px solid #ffe2a8;border-radius:6px;font-family:monospace;font-size:12px;">
+    <button onclick="configureSheetId()" style="background:var(--navy);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-weight:600;font-size:12.5px;cursor:pointer;font-family:inherit;white-space:nowrap">Configure</button>
+    <button onclick="loadFromSheet()" style="background:var(--green-ok);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-weight:600;font-size:12.5px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;white-space:nowrap">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>
+      Refresh
+    </button>
+  </div>
+  <div id="diagOut" style="margin-top:10px;font-size:12.5px;line-height:1.6;color:#1f8f4d;font-weight:500"></div>
 </div>
 
 <!-- HELPDESK -->
@@ -875,6 +882,190 @@ function goHome(){
 }
 
 /* ---------- refresh loop ---------- */
+// ===== CONFIGURATION FUNCTION =====
+function configureSheetId() {
+  const input = document.getElementById('sheetIdInput');
+  const sheetId = input.value.trim();
+  
+  if (!sheetId) {
+    alert('⚠️ Please paste your Google Sheet ID');
+    return;
+  }
+  
+  // Update the SHEET_ID variable
+  window.SHEET_ID = sheetId;
+  
+  // Save to localStorage
+  try {
+    localStorage.setItem('dashboard_sheet_id', sheetId);
+  } catch(e) {}
+  
+  // Show confirmation
+  const diagOut = document.getElementById('diagOut');
+  if (diagOut) {
+    diagOut.innerHTML = '✅ Sheet ID configured! Loading data...';
+  }
+  
+  // Load data
+  setTimeout(() => {
+    loadFromSheet();
+  }, 500);
+}
+
+// Load saved Sheet ID on startup
+function loadSavedSheetId() {
+  try {
+    const saved = localStorage.getItem('dashboard_sheet_id');
+    if (saved) {
+      window.SHEET_ID = saved;
+      document.getElementById('sheetIdInput').value = saved;
+      return true;
+    }
+  } catch(e) {}
+  return false;
+}
+
+// ===== GOOGLE SHEETS CONFIGURATION =====
+// Replace with your Google Sheet ID
+const SHEET_ID = 'YOUR_SHEET_ID_HERE'; // e.g., '1BxiMVs0XRA5nFMKUVfIAewOLiNO4p4H3rDKJ5xN8czQ'
+
+// Sheet GID mappings for different data types
+const SHEET_GIDS = {
+  helpdesk_dashboard: '1397472412',
+  helpdesk_aging: '1460575695',
+  helpdesk_category: '1192289919',
+  ops_dashboard: '1498898314',
+  ops_aging: '992914629',
+  ops_category: '52292667',
+  rsit_dashboard: '1357612863',
+  rsit_aging: '166158665',
+  rsit_category: '1371768702'
+};
+
+// Fetch data from Google Sheets using specific GID
+async function fetchSheetData(gid) {
+  try {
+    if (!SHEET_ID || SHEET_ID === 'YOUR_SHEET_ID_HERE') {
+      console.warn('⚠️ SHEET_ID not configured. Please set it first.');
+      return null;
+    }
+
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`;
+    const response = await fetch(csvUrl);
+    
+    if (!response.ok) {
+      console.warn(`Failed to fetch sheet ${gid}: ${response.status}`);
+      return null;
+    }
+    
+    const csv = await response.text();
+    return parseCSV(csv);
+  } catch (error) {
+    console.error(`Error fetching sheet ${gid}:`, error);
+    return null;
+  }
+}
+
+// Parse CSV data into arrays
+function parseCSV(csv) {
+  const lines = csv.trim().split('\n');
+  const result = [];
+  
+  lines.forEach(line => {
+    const cols = [];
+    let current = '';
+    let insideQuotes = false;
+    
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      const nextChar = line[i + 1];
+      
+      if (char === '"') {
+        if (insideQuotes && nextChar === '"') {
+          current += '"';
+          i++;
+        } else {
+          insideQuotes = !insideQuotes;
+        }
+      } else if (char === ',' && !insideQuotes) {
+        cols.push(current.trim());
+        current = '';
+      } else {
+        current += char;
+      }
+    }
+    cols.push(current.trim());
+    
+    if (cols.some(c => c)) result.push(cols);
+  });
+  
+  return result;
+}
+
+// Load all data from configured sheets
+async function loadFromSheet() {
+  try {
+    showNoData();
+    setStatus('loading');
+
+    // Fetch all sheets in parallel
+    const [
+      helpdeskDash, helpdeskAge, helpdeskCat,
+      opsDash, opsAge, opsCat,
+      rsitDash, rsitAge, rsitCat
+    ] = await Promise.all([
+      fetchSheetData(SHEET_GIDS.helpdesk_dashboard),
+      fetchSheetData(SHEET_GIDS.helpdesk_aging),
+      fetchSheetData(SHEET_GIDS.helpdesk_category),
+      fetchSheetData(SHEET_GIDS.ops_dashboard),
+      fetchSheetData(SHEET_GIDS.ops_aging),
+      fetchSheetData(SHEET_GIDS.ops_category),
+      fetchSheetData(SHEET_GIDS.rsit_dashboard),
+      fetchSheetData(SHEET_GIDS.rsit_aging),
+      fetchSheetData(SHEET_GIDS.rsit_category)
+    ]);
+
+    // Build DATA object
+    DATA = {
+      helpdeskDashboard: processData(helpdeskDash),
+      helpdeskAging: processData(helpdeskAge),
+      helpdeskCategory: processData(helpdeskCat),
+      opsDashboard: processData(opsDash),
+      opsAging: processData(opsAge),
+      opsCategory: processData(opsCat),
+      rsitDashboard: processData(rsitDash),
+      rsitAging: processData(rsitAge),
+      rsitCategory: processData(rsitCat)
+    };
+
+    // Check if any data was loaded
+    const hasData = Object.values(DATA).some(d => d && d.length > 1);
+    
+    if (!hasData) {
+      console.warn('⚠️ No data loaded. Verify SHEET_ID and ensure sheets are shared publicly.');
+      showNoData();
+      return;
+    }
+
+    clearNoData();
+    renderAll();
+    setStatus('');
+    console.log('✅ Data loaded successfully from Google Sheets');
+
+  } catch (error) {
+    console.error('Error loading data:', error);
+    showNoData();
+    setStatus('error');
+  }
+}
+
+// Process raw data (skip header if present)
+function processData(data) {
+  if (!data || data.length < 2) return null;
+  // Return data excluding header row (row 0)
+  return data.slice(1);
+}
+
 function testConnection(){}
 
 function refreshNow(){ loadFromSheet(); }
@@ -882,6 +1073,10 @@ function refreshNow(){ loadFromSheet(); }
   DATA=null;
   setStatus('sample');
   initNotes();
+  
+  // Load saved Sheet ID if available
+  loadSavedSheetId();
+  
   goHome();
   await loadFromSheet();           // pull live data on open
   setInterval(loadFromSheet,60000); // auto refresh every 60s
